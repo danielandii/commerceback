@@ -267,7 +267,7 @@ public function order()
 {
     
     $order = order::all();
-    return view('Admin.order', ['order' => $order]);
+    return view('admin.order', ['order' => $order]);
 }
 
 public function orderadd()
@@ -275,7 +275,7 @@ public function orderadd()
     $order = order::all();
     $User = User::all();
     $produk = produk::all();
-    return view('Admin/orderadd', ['order' => $order, 'User' => $User, 'produk' => $produk]);
+    return view('admin/orderadd', ['order' => $order, 'User' => $User, 'produk' => $produk]);
 }
 
 
@@ -350,23 +350,22 @@ public function transaksi()
     public function transaksiadd()
     {
         $transaksi = transaksi::get();
+        $kirim = kirim::all();
         $order = order::select('id_user')->groupBy('id_user')->get();
-        return view('Admin/transaksiadd', ['transaksi' => $transaksi, 'order' => $order]);
+        return view('Admin/transaksiadd', ['transaksi' => $transaksi, 'order' => $order, 'kirim' =>$kirim]);
     }
 
     public function transaksi_process(request $request)
     
     {
+
         $id_user = $request->id_user;
 
         $kirim = kirim::all();
         $order = order::where('id_user', $id_user)->get();
-        // dd($order);
-    
-     
-        
-    
-        return view('/admin.detailtransaksi', ['order' => $order, 'kirim' => $kirim]);
+        $max = transaksi::max('id');
+
+        return view('/admin.detailtransaksi', ['order' => $order, 'kirim' => $kirim, 'max' => $max]);
     }
  
     // public function detailtransaksi()
@@ -376,6 +375,42 @@ public function transaksi()
     //     return view('Admin.detailtransaksi', ['order', $order]);
     // }
 
+
+
+    //DETAIL TRANSAKSI 1
+    public function detailtransaksi1()
+    {
+        $transaksi = transaksi::all();
+        $kirim = kirim::all();
+        
+        return view('/admin.detailtransaksi1', ['kirim' => $kirim, 'transaksi' => $transaksi]);
+    }
+
+    public function detailtransaksi1process (Request $request)
+    {
+       dd($request);
+        $this->validate($request, [
+             
+            'alamat' => 'required',
+            'catatan' => 'required',
+            'tanggal' => 'required',
+            'invoice' => 'invoice',
+            
+        ]);
+
+        
+        transaksi::create([
+            
+            'alamat' => $request->alamat,
+            'catatan' => $request->catatan,
+            'tanggal' => $request->tanggal,
+            'invoice' => $request->invoice,
+            
+        ]);
+
+        return redirect('/transaksi');
+    }
+    
     //-------------------------------------------------------------------------------------------------------------
 }
 

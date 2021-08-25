@@ -38,15 +38,16 @@
 									
 									
 									<th>USER</th>
+									<th>TOTAL</th>
                                    
 									
 								</tr>
 							</thead>
 
-                            @foreach($User as $d)
+                            @foreach($transaksi as $t)
                 <tr>
                   
-                    <td>{{$d->name}}</td>
+                    <td>{{$t->id_user}}</td>
                     
                     
                    

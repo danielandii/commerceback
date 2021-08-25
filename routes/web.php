@@ -92,3 +92,7 @@ Route::get('/kirim_delete/{jenis}', 'AdminController@kirim_delete')->name('kirim
 Route::get('/editkirim/{id}','AdminController@editkirim');
 Route::post('/kirim/updatekirim','AdminController@updatekirim');
 
+//detaitransaksi1
+route::get('/detailtransaksi1', 'AdminController@detailtransaksi1')->name('detailtransaksi1');
+Route::post('/detailtransaksi1process', 'AdminController@detailtransaksi1process');
+
