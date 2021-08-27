@@ -22,7 +22,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 route::group(['middleware' => [ 'role:1']], function() {
     
-    route::get('/Admin', 'AdminController@index');
+    route::get('/admin', 'AdminController@index');
     route::get('/kategori', 'AdminController@kategori');
     route::get('/produk', 'AdminController@produk');
 

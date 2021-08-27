@@ -19,7 +19,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('Admin/Admin');
+        return view('admin/admin');
     }
 
                                             //USSERACCOUNT
@@ -36,14 +36,14 @@ class AdminController extends Controller
     {
         $produk = produk::all();
         // dd($produk);
-        return view('Admin.produk', ['produk' => $produk ]);
+        return view('admin.produk', ['produk' => $produk ]);
     }
 
     public function produkadd()
     {
         $produk = produk::all();
         $kategori = kategori::all();
-        return view('Admin/produkadd', ['produk' => $produk, 'kategori' => $kategori]);
+        return view('admin.produkadd', ['produk' => $produk, 'kategori' => $kategori]);
     }
 
     public function produk_process(Request $request)
@@ -95,7 +95,7 @@ class AdminController extends Controller
     public function editproduk($id_kategori)
     {
         $produk = DB::table('produk')->where('id_kategori',$id_kategori)->get();
-        return view('Admin.editproduk', ['produk' => $produk]);
+        return view('admin.editproduk', ['produk' => $produk]);
     }
 
     public function update(Request $request)
@@ -115,13 +115,13 @@ class AdminController extends Controller
      public function kategori()
      {
          $kategori = kategori::get();
-         return view('Admin.kategori', ['kategori' => $kategori]);
+         return view('admin.kategori', ['kategori' => $kategori]);
      }
 
      public function kategoriadd()
     {
         $kategori = kategori::get();
-        return view('Admin/kategoriadd', ['kategori' => $kategori]);
+        return view('admin.kategoriadd', ['kategori' => $kategori]);
     }
 
     public function kategori_process(Request $request)
@@ -162,7 +162,7 @@ class AdminController extends Controller
     public function editkategori($id)
     {
         $kategori = DB::table('kategori')->where('id',$id)->get();
-        return view('Admin.editkategori', ['kategori' => $kategori]);
+        return view('admin.editkategori', ['kategori' => $kategori]);
     }
 
     public function updatekategori(Request $request)
@@ -180,14 +180,14 @@ class AdminController extends Controller
      public function kirim()
      {  
          $kirim = kirim::all();                                           
-     return view('Admin.kirim', ['kirim' => $kirim]);
+     return view('admin.kirim', ['kirim' => $kirim]);
      }
  
      
      public function kirimadd()
      {
          $kirim = kirim::all();
-         return view('Admin/kirimadd', ['kirim' => $kirim]);
+         return view('admin/kirimadd', ['kirim' => $kirim]);
      }
  
      public function kirim_process(Request $request)
@@ -225,7 +225,7 @@ class AdminController extends Controller
          
          $kirim = DB::table('kirims')->where('id',$id)->get();
          
-         return view('Admin.editkirim', ['kirims' => $kirim]);
+         return view('admin.editkirim', ['kirims' => $kirim]);
      }
  
      public function updatekirim(Request $request)
@@ -275,7 +275,7 @@ public function orderadd()
     $order = order::all();
     $User = User::all();
     $produk = produk::all();
-    return view('admin/orderadd', ['order' => $order, 'User' => $User, 'produk' => $produk]);
+    return view('admin.orderadd', ['order' => $order, 'User' => $User, 'produk' => $produk]);
 }
 
 
@@ -336,7 +336,7 @@ public function order_delete($gambar)
                                             //TRANSAKSI
 // public function transaksi()
 // {                                             
-//    return view('Admin.transaksi');
+//    return view('admin.transaksi');
 // }
 
 public function transaksi()
@@ -344,7 +344,7 @@ public function transaksi()
         $transaksi = transaksi::all();
         $User = User::all();
     //  dd($user);
-        return view('Admin.transaksi', ['transaksi' => $transaksi , 'User' => $User ]);
+        return view('admin.transaksi', ['transaksi' => $transaksi , 'User' => $User ]);
     }
 
     public function transaksiadd()
@@ -352,7 +352,7 @@ public function transaksi()
         $transaksi = transaksi::get();
         $kirim = kirim::all();
         $order = order::select('id_user')->groupBy('id_user')->get();
-        return view('Admin/transaksiadd', ['transaksi' => $transaksi, 'order' => $order, 'kirim' =>$kirim]);
+        return view('admin.transaksiadd', ['transaksi' => $transaksi, 'order' => $order, 'kirim' =>$kirim]);
     }
 
     public function transaksi_process(request $request)
@@ -365,14 +365,14 @@ public function transaksi()
         $order = order::where('id_user', $id_user)->get();
         $max = transaksi::max('id');
 
-        return view('/admin.detailtransaksi', ['order' => $order, 'kirim' => $kirim, 'max' => $max]);
+        return view('admin.detailtransaksi', ['order' => $order, 'kirim' => $kirim, 'max' => $max]);
     }
  
     // public function detailtransaksi()
     // {
        
     //     $order = order::get();
-    //     return view('Admin.detailtransaksi', ['order', $order]);
+    //     return view('admin.detailtransaksi', ['order', $order]);
     // }
 
 
@@ -383,7 +383,7 @@ public function transaksi()
         $transaksi = transaksi::all();
         $kirim = kirim::all();
         
-        return view('/admin.detailtransaksi1', ['kirim' => $kirim, 'transaksi' => $transaksi]);
+        return view('admin.detailtransaksi1', ['kirim' => $kirim, 'transaksi' => $transaksi]);
     }
 
     public function detailtransaksi1process (Request $request)
@@ -402,7 +402,7 @@ public function transaksi()
             'catatan' => $request->catatan,
             'tanggal' => $request->tanggal,
             'invoice' => $request->invoice,
-            
+
             
         ]);
 

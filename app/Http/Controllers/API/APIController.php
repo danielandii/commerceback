@@ -11,6 +11,7 @@ class APIController extends Controller
     public function getproduk()
     {
         $produk = produk::all();
+        // dd($produk);
         // if ($produk!=null[]) {
         if ($produk) {
             # code...
