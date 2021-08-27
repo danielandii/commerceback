@@ -114,7 +114,7 @@
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">invoice</label>
                     <div class="col-lg-10">
-                        <textarea class="form-control" name="invoice">{{$invoice }}</textarea>
+                        <input type='text' class="form-control" name="invoice" value='{{$invoice }}' readonly>
                     </div>
                 </div>
 
