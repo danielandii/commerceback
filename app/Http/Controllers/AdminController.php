@@ -389,22 +389,20 @@ public function transaksi()
     public function detailtransaksi1process (Request $request)
     {
        dd($request);
-        $this->validate($request, [
-             
-            'alamat' => 'required',
-            'catatan' => 'required',
-            'tanggal' => 'required',
-            'invoice' => 'invoice',
-            
-        ]);
 
-        
+        $totalharga=0;
+        foreach ($request->jumlah_brg as $key => $value) {
+        $totalharga += $value * $request->harga_brg[$key];
+        }
+        dd($totalharga);
+
         transaksi::create([
             
             'alamat' => $request->alamat,
             'catatan' => $request->catatan,
             'tanggal' => $request->tanggal,
             'invoice' => $request->invoice,
+            
             
         ]);
 
