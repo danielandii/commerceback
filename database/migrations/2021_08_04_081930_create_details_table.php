@@ -18,8 +18,8 @@ class CreateDetailsTable extends Migration
             $table->string('id_transaksi');
             $table->string('nama_brg');
             $table->string('harga_brg');
-            $table->string('tanggal');
             $table->string('jumlah_brg');
+            $table->string('sub_total')->nullable();
             $table->string('catatan');
             $table->timestamps();
         });

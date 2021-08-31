@@ -57,7 +57,7 @@
                             <td>{{$o->catatan}}</td>
 
                         </tr>
-                        <input type="text" name="id_user" value="{{$o->id_user}}" >
+                        <input type="text" name="id_user" value="{{$o->id_user}}" hidden>
                         <input type="text" name="nama_brg[]" value="{{$o->nama_brg}}" hidden>
                         <input type="text" name="jumlah_brg[]" value="{{$o->jumlah_brg}}" hidden>
                         <input type="text" name="harga_brg[]" value="{{$o->harga_brg}}" hidden>

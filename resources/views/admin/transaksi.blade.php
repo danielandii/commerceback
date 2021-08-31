@@ -31,40 +31,55 @@
 					</div>
 
 					<div class="table-responsive">
-						<table class="table">
-							<thead>
-								<tr class="bg-blue">
-									
-									
-									
-									<th>USER</th>
-									<th>TOTAL</th>
-                                   
-									
-								</tr>
-							</thead>
-
-                            @foreach($transaksi as $t)
+                        <table class="table">
+                            <thead>
+                                <tr class="bg-blue">
+                                    
+                                    <th>USER</th>
+                                    <th>TOTAL HARGA</th>
+                                    <th>ALAMAT</th>
+                                    <th>TANGGAL</th>
+                                    <th>CATATAN</th>
+                                    <th>KIRIM</th>
+                                    <th>INVOICE</th>
+                                    <th>BUKTI TF</th>
+                                    
+                                    <th></th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                @foreach($transaksi as $t)
+                
+                
                 <tr>
-                  
-                    <td>{{$t->id_user}}</td>
-					
-
-
-				
-                    
-                    
-                   
-					<!-- <td><a href="/detailtransaksi/{{ $t->id }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Ditails</a>
-</td> -->
-<td> <a href="/histori"><button class="btn btn-info" style="margin-bottom:10px;">DETAIL</button></a></td>
                     
                  
+                    <!-- <td>{{@$t->kategori->jenis}}</td> -->
+                    <!-- <td>{{@$o->user->name}}</td> -->
+                    <td>{{@$t->user->name}}</td>
+                    <td>{{$t->totalharga}}</td>
+                    <td>{{$t->alamat}}</td>
+                    <td>{{$t->tanggal}}</td>
+                    <td>{{$t->catatan}}</td>
+                    <td>{{$t->jenis}}</td>
+                    <td>{{$t->invoice}}</td>
+                    <td><img width="100px" src="{{ url('/images/'.$t->bukti_tf) }}"></td>
+
+                    <td><a href="/histori/{{$t->id}}"><button class="btn btn-danger">DETAIL</button> </a> </td>
+                    
+                    
+                    
+                    
+
+                    
+                   
                 </tr>
                 @endforeach
-						</table>
-					</div>
-				</div>
+            </tbody>
+                        </table>
+                    </div>
+                </div>
  
 
     @endsection

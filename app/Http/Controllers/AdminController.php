@@ -11,6 +11,7 @@ use App\order;
 use App\kirim;
 use App\transaksi;
 use App\rekening;
+use App\detail;
 
 
 
@@ -345,6 +346,7 @@ class AdminController extends Controller
     {
         $transaksi = transaksi::all();
         $User = User::all();
+        $detail = detail::all();
 
         //  dd($user);
         return view('admin.transaksi', ['transaksi' => $transaksi, 'User' => $User]);
@@ -369,8 +371,9 @@ class AdminController extends Controller
 
         $max = transaksi::max('id');
         $rekening = rekening::all();
+        $detail = detail::all();
 
-        return view('admin.detailtransaksi', ['order' => $order, 'kirim' => $kirim, 'max' => $max, 'rekening' => $rekening, 'transaksi' => $transaksi]);
+        return view('admin.detailtransaksi', ['order' => $order, 'kirim' => $kirim, 'max' => $max, 'rekening' => $rekening, 'transaksi' => $transaksi, 'detail'=> $detail]);
     }
 
     // public function detailtransaksi()
@@ -389,8 +392,9 @@ class AdminController extends Controller
         $kirim = kirim::find(all);
         $rekening = rekening::all();
         $order = order::all();
+        $detail = detail::all();
 
-        return view('admin.detailtransaksi1', ['kirim' => $kirim, 'rekening' => $rekening, 'transaksi' => $transaksi, 'order' => $order]);
+        return view('admin.detailtransaksi1', ['kirim' => $kirim, 'rekening' => $rekening, 'transaksi' => $transaksi, 'order' => $order, 'detail'=> $detail]);
     }
 
     public function detailtransaksi1process(Request $request)
@@ -421,7 +425,7 @@ class AdminController extends Controller
         }
         // dd($totalharga);
 
-        transaksi::create([
+        $transaksi = transaksi::create([
 
             'id_order' => $request->id_order,
             'id_user' => $request->id_user,
@@ -434,27 +438,42 @@ class AdminController extends Controller
             'invoice' => $request->invoice,
             'bukti_tf' => $nama_file,
 
-
-
         ]);
+        if ($transaksi) {
+            foreach ($request ->nama_brg as $key => $value) {
+                $sub_total=0;
+                $sub_total += $request->jumlah_brg[$key] * $request->harga_brg[$key];
+
+                detail::create([    
+                    'id_transaksi' => $transaksi->id,
+                    'nama_brg' => $value,
+                    'harga_brg' => $request->harga_brg[$key],
+                    'jumlah_brg' => $request->jumlah_brg[$key],
+                    'sub_total' => $sub_total,
+                    'catatan'=>$request->catatan,
+                
+                ]);
+            }
+            
+        }
+
+        
         // dd($transaksi);
         return redirect('/transaksi');
+
     }
 
-    public function histori()
+    public function histori($id_transaksi)
     {
-        $transaksi = transaksi::all();
-        // dd($produk);
-        return view('admin.histori', ['transaksi' => $transaksi]);
+
+        
+        $detail=detail::where('id_transaksi', $id_transaksi)->get();
+        $transaksi = transaksi::find($id_transaksi);
+        // dd($transaksi);
+        return view('admin.histori', ['detail' => $detail, 'transaksi' => $transaksi]);
     }
 
-    //DETAIL AKHIR
-    public function detail()
-    {
-        $detail = detail::get();
-        return view('admin.detail', ['detail' => $detail]);
-    }
-
+    
     //REKENING
 
     public function rekening()

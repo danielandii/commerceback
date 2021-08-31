@@ -30,7 +30,7 @@
                 <span class='label label-info' id="upload-file-info"></span>
             </div>
         </div>
-        <input type="submit" value="Upload" class="btn btn-primary col-sm-3">
+        <input type="submit" value="Simpan" class="btn btn-primary col-sm-3">
     </form>
 </div>
 

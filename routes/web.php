@@ -88,10 +88,9 @@ route::get('/detailtransaksi', 'AdminController@detailtransaksi')->name('detailt
 route::get('/detailtransaksi1', 'AdminController@detailtransaksi1')->name('detailtransaksi1');
 Route::post('/detailtransaksi1process', 'AdminController@detailtransaksi1process');
 
-route::get('/histori', 'AdminController@histori');
+route::get('/histori/{id_transaksi}', 'AdminController@histori');
 
-                                        //DETAIL AKHIR
-route::get('/detail', 'AdminController@detail'); 
+
 
 
                                             //kirim
