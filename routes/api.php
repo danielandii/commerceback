@@ -24,5 +24,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('getproduk', 'API\APIController@getproduk');
+Route::get('getkategori', 'API\APIController@getkategori');
+Route::get('getkirim', 'API\APIController@getkirim');
+Route::get('getrekening', 'API\APIController@getrekening');
+Route::get('getuser', 'API\APIController@getuser');
+Route::get('getorder', 'API\APIController@getorder');
+Route::get('gettransaksi', 'API\APIController@gettransaksi');
 
 

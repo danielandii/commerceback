@@ -15,16 +15,17 @@ class CreateTransaksisTable extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('id_order');
             $table->string('id_user');
-            $table->string('invoice');
+            $table->string('totalharga');
             $table->string('alamat');
-            $table->string('total');
             $table->string('tanggal');
             $table->string('catatan');
+            $table->string('jenis');
+            $table->string('invoice');
             $table->string('bukti_tf');
-            $table->string('jumlah_brg');
-            $table->string('gambar');
+         
+
+
             $table->timestamps();
         });
     }

@@ -9,14 +9,14 @@
     }
 </style>
 
-<h1>TRANSAKSI</h1>
+<h1>REKENING</h1>
 
 <div class>
-    <a href="/transaksiadd"><button class="btn btn-info" style="margin-bottom:10px;">ADD TRANSAKSI</button></a>
+    <a href="/rekeningadd"><button class="btn btn-info" style="margin-bottom:10px;">ADD REKENING</button></a>
 
     <div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title">Tabel User</h5>
+						<h5 class="card-title">Tabel Rekening</h5>
 						<div class="header-elements">
 							<div class="list-icons">
 		                		<a class="list-icons-item" data-action="collapse"></a>
@@ -35,33 +35,27 @@
 							<thead>
 								<tr class="bg-blue">
 									
-									
-									
-									<th>USER</th>
-									<th>TOTAL</th>
-                                   
-									
+									<th>BANK</th>
+									<th>NAMA</th>
+									<th>REKENING</th>
+									<th></th>
+                                    <th>OPSI</th>
 								</tr>
 							</thead>
-
-                            @foreach($transaksi as $t)
+                            <tbody>
+                @foreach($rekening as $r)
                 <tr>
-                  
-                    <td>{{$t->id_user}}</td>
+                    
+                    <td>{{$r->bank}}</td>
+                    <td>{{$r->nama}}</td>
+                    <td>{{$r->rekening}}</td>
 					
-
-
-				
-                    
-                    
-                   
-					<!-- <td><a href="/detailtransaksi/{{ $t->id }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Ditails</a>
-</td> -->
-<td> <a href="/histori"><button class="btn btn-info" style="margin-bottom:10px;">DETAIL</button></a></td>
-                    
                  
-                </tr>
+                   
+                    <td><a href="/rekening_delete/{{ $r->id }}"><button class="btn btn-danger">DELETE</button> </a> </td> 
+                    
                 @endforeach
+            </tbody>
 						</table>
 					</div>
 				</div>

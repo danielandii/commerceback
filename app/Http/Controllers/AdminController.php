@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\produk;
@@ -9,12 +10,13 @@ use App\User;
 use App\order;
 use App\kirim;
 use App\transaksi;
+use App\rekening;
 
 
 
 class AdminController extends Controller
 {
-                                           //CONTROLLER INTI
+    //CONTROLLER INTI
 
 
     public function index()
@@ -22,21 +24,21 @@ class AdminController extends Controller
         return view('admin/admin');
     }
 
-                                            //USSERACCOUNT
+    //USSERACCOUNT
     public function useracc()
     {
         $user = User::all();
-    //  dd($user);
+        //  dd($user);
         return view('admin.useracc', ['user' => $user]);
     }
 
-   
-                                               //PRODUK
+
+    //PRODUK
     public function produk()
     {
         $produk = produk::all();
         // dd($produk);
-        return view('admin.produk', ['produk' => $produk ]);
+        return view('admin.produk', ['produk' => $produk]);
     }
 
     public function produkadd()
@@ -57,7 +59,7 @@ class AdminController extends Controller
             'harga_brg' => 'required',
             'deskripsi' => 'required',
             'gambar' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
-            
+
         ]);
 
         // menyimpan data file yang diupload ke variabel $file
@@ -70,15 +72,15 @@ class AdminController extends Controller
         $produk->move($tujuan_upload, $nama_file);
 
         produk::create([
-            
+
             'gambar' => $nama_file,
             'nama_brg' => $request->nama_brg,
             'stok_brg' => $request->stok_brg,
             'harga_brg' => $request->harga_brg,
             'deskripsi' => $request->deskripsi,
-            'id_kategori'=> $request->id_kategori,
-            
-            
+            'id_kategori' => $request->id_kategori,
+
+
         ]);
 
         return redirect('/produk');
@@ -94,31 +96,31 @@ class AdminController extends Controller
 
     public function editproduk($id_kategori)
     {
-        $produk = DB::table('produk')->where('id_kategori',$id_kategori)->get();
+        $produk = DB::table('produk')->where('id_kategori', $id_kategori)->get();
         return view('admin.editproduk', ['produk' => $produk]);
     }
 
     public function update(Request $request)
     {
-	DB::table('produk')->where('id_kategori',$request->id)->update([
-		'nama_brg' => $request->nama,
-		'stok_brg' => $request->stok,
-		'harga_brg' => $request->harga,
-		'deskripsi' => $request->deskripsi,
-        
-	]);
-	return redirect('/produk');
+        DB::table('produk')->where('id_kategori', $request->id)->update([
+            'nama_brg' => $request->nama,
+            'stok_brg' => $request->stok,
+            'harga_brg' => $request->harga,
+            'deskripsi' => $request->deskripsi,
+
+        ]);
+        return redirect('/produk');
     }
 
-    
-                                                // KATEGORI
-     public function kategori()
-     {
-         $kategori = kategori::get();
-         return view('admin.kategori', ['kategori' => $kategori]);
-     }
 
-     public function kategoriadd()
+    // KATEGORI
+    public function kategori()
+    {
+        $kategori = kategori::get();
+        return view('admin.kategori', ['kategori' => $kategori]);
+    }
+
+    public function kategoriadd()
     {
         $kategori = kategori::get();
         return view('admin.kategoriadd', ['kategori' => $kategori]);
@@ -127,10 +129,10 @@ class AdminController extends Controller
     public function kategori_process(Request $request)
     {
         $this->validate($request, [
-            
+
             'jenis' => 'required',
             'gambar' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
-            
+
         ]);
 
         // menyimpan data file yang diupload ke variabel $file
@@ -143,10 +145,10 @@ class AdminController extends Controller
         $kategori->move($tujuan_upload, $nama_file);
 
         kategori::create([
-            
+
             'jenis' => $request->jenis,
             'gambar' => $nama_file,
-            
+
         ]);
 
         return redirect('/kategori');
@@ -161,170 +163,170 @@ class AdminController extends Controller
 
     public function editkategori($id)
     {
-        $kategori = DB::table('kategori')->where('id',$id)->get();
+        $kategori = DB::table('kategori')->where('id', $id)->get();
         return view('admin.editkategori', ['kategori' => $kategori]);
     }
 
     public function updatekategori(Request $request)
     {
-	DB::table('kategori')->where('id',$request->id)->update([
-		'jenis' => $request->jenis,
-		
-	]);
-	return redirect('/kategori');
+        DB::table('kategori')->where('id', $request->id)->update([
+            'jenis' => $request->jenis,
+
+        ]);
+        return redirect('/kategori');
     }
 
 
-                                                  //kirim
+    //kirim
 
-     public function kirim()
-     {  
-         $kirim = kirim::all();                                           
-     return view('admin.kirim', ['kirim' => $kirim]);
-     }
- 
-     
-     public function kirimadd()
-     {
-         $kirim = kirim::all();
-         return view('admin/kirimadd', ['kirim' => $kirim]);
-     }
- 
-     public function kirim_process(Request $request)
-     {
-         $this->validate($request, [
-             
-             'jenis' => 'required',
-             'waktu' => 'required',
-             'harga' => 'required',
-             
-         ]);
- 
-         
-         kirim::create([
-             
-             'jenis' => $request->jenis,
-             'waktu' => $request->waktu,
-             'harga' => $request->harga,
-            
-             
-         ]);
- 
-         return redirect('/kirim');
-     }
- 
-     public function kirim_delete($jenis)
-     {
-         kirim::where('jenis', $jenis)
-             ->delete();
-         return redirect()->action('AdminController@kirim');
-     }
- 
-     public function editkirim($id)
-     {
-         
-         $kirim = DB::table('kirims')->where('id',$id)->get();
-         
-         return view('admin.editkirim', ['kirims' => $kirim]);
-     }
- 
-     public function updatekirim(Request $request)
-     {
-     DB::table('kirims')->where('id',$request->id)->update([
-         'jenis' => $request->jenis,
-         'waktu' => $request->waktu,
-         'harga' => $request->harga,
-         
-     ]);
-     return redirect('/kirim');
-     }
-                                                    //TES
-                                                
-public function tes()
-{
-//     $produk = produk::all();
-//     return view('tes.tes',['produk' =>$produk]);
-//     dd($produk);
-// }
+    public function kirim()
+    {
+        $kirim = kirim::all();
+        return view('admin.kirim', ['kirim' => $kirim]);
+    }
 
-$user = User::all();
-//  dd($user);
-    return view('tes.tes', compact('user'));
-}
 
-// public function create()
-// {
-//     $groups = Hotel_group::all();
+    public function kirimadd()
+    {
+        $kirim = kirim::all();
+        return view('admin/kirimadd', ['kirim' => $kirim]);
+    }
 
-//     return view('hotels.create', compact('groups'));
-// }
+    public function kirim_process(Request $request)
+    {
+        $this->validate($request, [
 
-    
+            'jenis' => 'required',
+            'waktu' => 'required',
+            'harga' => 'required',
 
-    
-                                                //KERANJANG
-public function order()
-{
-    
-    $order = order::all();
-    return view('admin.order', ['order' => $order]);
-}
+        ]);
 
-public function orderadd()
-{
-    $order = order::all();
-    $User = User::all();
-    $produk = produk::all();
-    return view('admin.orderadd', ['order' => $order, 'User' => $User, 'produk' => $produk]);
-}
+
+        kirim::create([
+
+            'jenis' => $request->jenis,
+            'waktu' => $request->waktu,
+            'harga' => $request->harga,
+
+
+        ]);
+
+        return redirect('/kirim');
+    }
+
+    public function kirim_delete($jenis)
+    {
+        kirim::where('jenis', $jenis)
+            ->delete();
+        return redirect()->action('AdminController@kirim');
+    }
+
+    public function editkirim($id)
+    {
+
+        $kirim = DB::table('kirims')->where('id', $id)->get();
+
+        return view('admin.editkirim', ['kirims' => $kirim]);
+    }
+
+    public function updatekirim(Request $request)
+    {
+        DB::table('kirims')->where('id', $request->id)->update([
+            'jenis' => $request->jenis,
+            'waktu' => $request->waktu,
+            'harga' => $request->harga,
+
+        ]);
+        return redirect('/kirim');
+    }
+    //TES
+
+    public function tes()
+    {
+        //     $produk = produk::all();
+        //     return view('tes.tes',['produk' =>$produk]);
+        //     dd($produk);
+        // }
+
+        $user = User::all();
+        //  dd($user);
+        return view('tes.tes', compact('user'));
+    }
+
+    // public function create()
+    // {
+    //     $groups = Hotel_group::all();
+
+    //     return view('hotels.create', compact('groups'));
+    // }
 
 
 
-public function order_process(Request $request)
-{
-    // dd($request);
 
-    // $this->validate($request, [
-    
-    //     'nama_brg' => 'required',
-    //     // 'harga_brg' => 'required',
-    //     'jumlah_brg' => 'required',
-    //     'catatan' => 'required'
-        
-        
-    // ]);
-//ambil database dr tabel lain
+    //KERANJANG
+    public function order()
+    {
+
+        $order = order::all();
+        return view('admin.order', ['order' => $order]);
+    }
+
+    public function orderadd()
+    {
+        $order = order::all();
+        $User = User::all();
+        $produk = produk::all();
+        return view('admin.orderadd', ['order' => $order, 'User' => $User, 'produk' => $produk]);
+    }
 
 
-$produk=produk::find($request->nama_brg);
-// dd($produk);
 
-    // menyimpan data file yang diupload ke variabel $file
-    // $order = $request->file('gambar');
+    public function order_process(Request $request)
+    {
+        // dd($request);
 
-    // $nama_file = time() . "_" . $order->getClientOriginalName();
+        // $this->validate($request, [
 
-    // isi dengan nama folder tempat kemana file diupload
-    // $tujuan_upload = 'images';
-    // $order->move($tujuan_upload, $nama_file);
+        //     'nama_brg' => 'required',
+        //     // 'harga_brg' => 'required',
+        //     'jumlah_brg' => 'required',
+        //     'catatan' => 'required'
 
-    order::create([
-        
-        'gambar' => $produk->gambar,
-        'id_user' => $request->id_user,
-        'nama_brg' => $produk->nama_brg,
-        'harga_brg' => $produk->harga_brg,
-        'jumlah_brg' => $request->jumlah_brg,
-        'catatan' => $request->catatan,
-        
-        
-        
-    ]);
 
-    return redirect('/order');
-}
-        
-public function order_delete($gambar)
+        // ]);
+        //ambil database dr tabel lain
+
+
+        $produk = produk::find($request->nama_brg);
+        // dd($produk);
+
+        // menyimpan data file yang diupload ke variabel $file
+        // $order = $request->file('gambar');
+
+        // $nama_file = time() . "_" . $order->getClientOriginalName();
+
+        // isi dengan nama folder tempat kemana file diupload
+        // $tujuan_upload = 'images';
+        // $order->move($tujuan_upload, $nama_file);
+
+        order::create([
+
+            'gambar' => $produk->gambar,
+            'id_user' => $request->id_user,
+            'nama_brg' => $produk->nama_brg,
+            'harga_brg' => $produk->harga_brg,
+            'jumlah_brg' => $request->jumlah_brg,
+            'catatan' => $request->catatan,
+
+
+
+        ]);
+
+        return redirect('/order');
+    }
+
+    public function order_delete($gambar)
     {
         order::where('gambar', $gambar)
             ->delete();
@@ -333,44 +335,47 @@ public function order_delete($gambar)
 
 
 
-                                            //TRANSAKSI
-// public function transaksi()
-// {                                             
-//    return view('admin.transaksi');
-// }
+    //TRANSAKSI
+    // public function transaksi()
+    // {                                             
+    //    return view('admin.transaksi');
+    // }
 
-public function transaksi()
+    public function transaksi()
     {
         $transaksi = transaksi::all();
         $User = User::all();
-    //  dd($user);
-        return view('admin.transaksi', ['transaksi' => $transaksi , 'User' => $User ]);
+
+        //  dd($user);
+        return view('admin.transaksi', ['transaksi' => $transaksi, 'User' => $User]);
     }
 
     public function transaksiadd()
     {
         $transaksi = transaksi::get();
         $kirim = kirim::all();
+        $rekening = rekening::all();
         $order = order::select('id_user')->groupBy('id_user')->get();
-        return view('admin.transaksiadd', ['transaksi' => $transaksi, 'order' => $order, 'kirim' =>$kirim]);
+        return view('admin.transaksiadd', ['transaksi' => $transaksi, 'order' => $order, 'kirim' => $kirim, 'rekening' => $rekening]);
     }
 
     public function transaksi_process(request $request)
-    
+
     {
-
+        $transaksi = transaksi::all();
         $id_user = $request->id_user;
-
         $kirim = kirim::all();
         $order = order::where('id_user', $id_user)->get();
-        $max = transaksi::max('id');
 
-        return view('admin.detailtransaksi', ['order' => $order, 'kirim' => $kirim, 'max' => $max]);
+        $max = transaksi::max('id');
+        $rekening = rekening::all();
+
+        return view('admin.detailtransaksi', ['order' => $order, 'kirim' => $kirim, 'max' => $max, 'rekening' => $rekening, 'transaksi' => $transaksi]);
     }
- 
+
     // public function detailtransaksi()
     // {
-       
+
     //     $order = order::get();
     //     return view('admin.detailtransaksi', ['order', $order]);
     // }
@@ -381,42 +386,119 @@ public function transaksi()
     public function detailtransaksi1()
     {
         $transaksi = transaksi::all();
-        $kirim = kirim::all();
-        
-        return view('admin.detailtransaksi1', ['kirim' => $kirim, 'transaksi' => $transaksi]);
+        $kirim = kirim::find(all);
+        $rekening = rekening::all();
+        $order = order::all();
+
+        return view('admin.detailtransaksi1', ['kirim' => $kirim, 'rekening' => $rekening, 'transaksi' => $transaksi, 'order' => $order]);
     }
 
-    public function detailtransaksi1process (Request $request)
+    public function detailtransaksi1process(Request $request)
     {
-       dd($request);
+        // dd($request);
 
-        $totalharga=0;
+        $this->validate($request, [
+
+
+            'bukti_tf' => 'required|file|image|mimes:jpeg,png,jpg|max:2048',
+
+        ]);
+
+        $kirim = kirim::find($request->jenis);
+        $rekening = rekening::find($request->bank);
+
+        $transaksi = $request->file('bukti_tf');
+
+        $nama_file = time() . "_" . $transaksi->getClientOriginalName();
+
+        $tujuan_upload = 'images';
+        $transaksi->move($tujuan_upload, $nama_file);
+
+
+        $totalharga = 0;
         foreach ($request->jumlah_brg as $key => $value) {
-        $totalharga += $value * $request->harga_brg[$key];
+            $totalharga += $value * $request->harga_brg[$key];
         }
-        dd($totalharga);
+        // dd($totalharga);
 
         transaksi::create([
-            
+
+            'id_order' => $request->id_order,
+            'id_user' => $request->id_user,
+            'totalharga' => $request->totalharga,
+            'nama_brg' => $request->nama_brg,
             'alamat' => $request->alamat,
             'catatan' => $request->catatan,
             'tanggal' => $request->tanggal,
+            'jenis' => $request->jenis,
             'invoice' => $request->invoice,
+            'bukti_tf' => $nama_file,
 
-            
+
+
         ]);
-
+        // dd($transaksi);
         return redirect('/transaksi');
     }
-    
+
+    public function histori()
+    {
+        $transaksi = transaksi::all();
+        // dd($produk);
+        return view('admin.histori', ['transaksi' => $transaksi]);
+    }
+
+    //DETAIL AKHIR
+    public function detail()
+    {
+        $detail = detail::get();
+        return view('admin.detail', ['detail' => $detail]);
+    }
+
+    //REKENING
+
+    public function rekening()
+    {
+        $rekening = rekening::get();
+        return view('admin.rekening', ['rekening' => $rekening]);
+    }
+
+    public function rekeningadd()
+    {
+        $rekening = rekening::all();
+        return view('admin.rekeningadd', ['rekening' => $rekening]);
+    }
+
+    public function rekening_process(Request $request)
+    {
+        $this->validate($request, [
+
+            'bank' => 'required',
+            'nama' => 'required',
+            'rekening' => 'required',
+
+        ]);
+
+
+        rekening::create([
+
+            'bank' => $request->bank,
+            'nama' => $request->nama,
+            'rekening' => $request->rekening,
+
+
+        ]);
+
+        return redirect('/rekening');
+    }
+
+    public function rekening_delete($id)
+    {
+        rekening::where('id', $id)
+            ->delete();
+        return redirect()->action('AdminController@rekening');
+    }
     //-------------------------------------------------------------------------------------------------------------
 }
 
 //-------------------------------------------------------------------------------------------------------------------
-
-
-   
-
-    
-
-

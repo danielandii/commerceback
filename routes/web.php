@@ -84,6 +84,16 @@ Route::get('/transaksiadd', 'AdminController@transaksiadd')->name('transaksiadd'
 Route::get('/transaksi_process', 'AdminController@transaksi_process');
 route::get('/detailtransaksi', 'AdminController@detailtransaksi')->name('detailtransaksi');
 
+                                        //detaitransaksi1
+route::get('/detailtransaksi1', 'AdminController@detailtransaksi1')->name('detailtransaksi1');
+Route::post('/detailtransaksi1process', 'AdminController@detailtransaksi1process');
+
+route::get('/histori', 'AdminController@histori');
+
+                                        //DETAIL AKHIR
+route::get('/detail', 'AdminController@detail'); 
+
+
                                             //kirim
 route::get('/kirim', 'AdminController@kirim');
 Route::get('/kirimadd', 'AdminController@kirimadd')->name('kirimadd');
@@ -92,7 +102,9 @@ Route::get('/kirim_delete/{jenis}', 'AdminController@kirim_delete')->name('kirim
 Route::get('/editkirim/{id}','AdminController@editkirim');
 Route::post('/kirim/updatekirim','AdminController@updatekirim');
 
-//detaitransaksi1
-route::get('/detailtransaksi1', 'AdminController@detailtransaksi1')->name('detailtransaksi1');
-Route::post('/detailtransaksi1process', 'AdminController@detailtransaksi1process');
+                                            //REKENING
+route::get('/rekening', 'AdminController@rekening');
+Route::get('/rekeningadd', 'AdminController@rekeningadd')->name('rekeningadd');
+Route::post('/rekening_process', 'AdminController@rekening_process');
+Route::get('/rekening_delete/{id}', 'AdminController@rekening_delete')->name('rekening_delete');
 

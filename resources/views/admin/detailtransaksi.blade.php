@@ -42,6 +42,12 @@
                     </thead>
                     <tbody>
 
+                        @php
+                        $totalharga=0
+
+                        @endphp
+
+                        
                         @foreach($order as $o)
                         <tr>
                             <td><img width="100px" src="{{ url('/images/'.$o->gambar) }}"></td>
@@ -49,15 +55,26 @@
                             <td>{{$o->harga_brg}}</td>
                             <td>{{$o->jumlah_brg}}</td>
                             <td>{{$o->catatan}}</td>
+
                         </tr>
-                        <input type="text" name="nama_brg[]" value="{{$o->nama_brg}}">
-                        <input type="text" name="jumlah_brg[]" value="{{$o->jumlah_brg}}">
-                        <input type="text" name="harga_brg[]" value="{{$o->harga_brg}}">
+                        <input type="text" name="id_user" value="{{$o->id_user}}" >
+                        <input type="text" name="nama_brg[]" value="{{$o->nama_brg}}" hidden>
+                        <input type="text" name="jumlah_brg[]" value="{{$o->jumlah_brg}}" hidden>
+                        <input type="text" name="harga_brg[]" value="{{$o->harga_brg}}" hidden>
+                        @php
+                        $totalharga += $o->harga_brg * $o->jumlah_brg
+
+
+                        @endphp
                         @endforeach
+
+
                     </tbody>
                 </table>
                 <hr>
                 <br>
+
+                <!-- {{$totalharga}} -->
 
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">Alamat</label>
@@ -81,17 +98,18 @@
                 </div>
 
                 <div class="form-group row">
-
                     <label class="col-form-label col-lg-2">Expedisi</label>
                     <div class="col-lg-10">
-                        <select name="id" id="id" class="form-control form-control-select2" data-container-css-class="border-teal" data-dropdown-css-class="border-teal" required>
+                        <select name="jenis" id="id" class="form-control form-control-select2" data-container-css-class="border-teal" data-dropdown-css-class="border-teal" required>
                             <option value=>-- Pilih Expedisi --</option>
                             @foreach($kirim as $w)
-                            <option value="{{$w->id}}">{{$w->jenis}}</option>
+                            <option value="{{$w->jenis}}">{{$w->jenis}} &nbsp; &nbsp; &nbsp; {{$w->waktu}}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
+
+                
 
                 @php
                 $kode = $max+1;
@@ -109,7 +127,7 @@
                 @endphp
 
 
-             
+
 
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2">invoice</label>
@@ -118,16 +136,37 @@
                     </div>
                 </div>
 
-                <!-- <div class="form-group">
-                        <div style="position:relative;">
-                            <a class='btn btn-info col-sm-3' href='javascript:;'>
-                                Choose Image...
-                                <input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="gambar" size="40" onchange='$("#upload-file-info").html($(this).val());'>
-                            </a>
-                            &nbsp;
-                            <span class='label label-info' id="upload-file-info"></span>
-                        </div>
-                </div> -->
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2">Hotal Harga</label>
+                    <div class="col-lg-10">
+                        <input type='text' class="form-control" name="totalharga" value='{{$totalharga }}' readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2">Rekening</label>
+                    <div class="col-lg-10">
+                        <select name="bank" id="id" class="form-control form-control-select2" data-container-css-class="border-teal" data-dropdown-css-class="border-teal" required>
+                            <option value=>-- Pilih Rekening --</option>
+                            @foreach($rekening as $r)
+                            <option value="{{$r->bank}}">{{$r->bank}} &nbsp; &nbsp; &nbsp; {{$r->rekening}}  &nbsp; &nbsp; &nbsp; {{$r->nama}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2">Bukti Transfer</label>
+                <a class='btn btn-info col-sm-3' href='javascript:;'>
+                    Choose Image...
+                    <input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="bukti_tf" size="40" onchange='$("#upload-file-info").html($(this).val());'>
+                </a>
+                &nbsp;
+                <span class='label label-info' id="upload-file-info"></span>
+            </div>
+        </div>
+                
+                
 
                 <div>
                     <button class="form-control btn btn-success" type="submit">submit</button>

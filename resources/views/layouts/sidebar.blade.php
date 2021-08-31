@@ -62,6 +62,7 @@
 
 							<ul class="nav nav-group-sub" data-submenu-title="Layouts" style="display: block;">
                                 <li class="nav-item"><a href="/useracc" class="nav-link">User</a></li> 
+                                <li class="nav-item"><a href="/rekening" class="nav-link">Rekening</a></li> 
 								<li class="nav-item"><a href="/produk" class="nav-link">Produk</a></li>
 								<li class="nav-item"><a href="/kategori" class="nav-link">Kategori</a></li>
 								<li class="nav-item"><a href="/order" class="nav-link">Order</a></li>
