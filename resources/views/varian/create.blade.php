@@ -38,17 +38,43 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2">Nama varian</label>
+							<label class="col-form-label col-lg-2">Jenis Varian</label>
 							<div class="col-lg-10">
 								<input type="text" name="jenis_varian" class="form-control border-teal border-1 @error('jenis_varian') is-invalid @enderror" placeholder="Nama Varian" required autofocus autocomplete="off" value="{{ old('jenis_varian') }}">
 							</div>
-						</div>						
+						</div>
+						<div class="form-group row">
+						<label class="col-form-label col-lg-2">Isi Varian</label>
+							<div class="col-lg-9">
+								<input type="text" name="isi_varian[]" class="form-control border-teal border-1" placeholder="Isi Varian">
+							</div>
+							<div class="col-md-1">
+								<button type="button" class="btn btn-success btn-icon add-more" style="display:block"><i class="icon-plus-circle2" title="Add"></i></button>
+							</div>
+							
+						</div>
+						
+						<div class="before-add-more">
+						</div>			
 					</fieldset>
 					<div class="text-right">
 						<a href="{{ url('/varian')}}" class="btn btn-light">Kembali <i class="icon-undo"></i></a>
 						<button type="submit" class="btn btn-primary submitBtn">Simpan <i class="icon-paperplane ml-2"></i></button>
 					</div>
 				</form>
+				<div class="copy" style="display: none">
+							<div class="form-group row control-group">
+							<label class="col-form-label col-lg-2"> </label>
+								<div class="col-lg-9">
+									{{-- <label>No Container</label> --}}
+									<input type="text" name="isi_varian[]" class="form-control border-teal border-1" placeholder="Isi Varian">
+								</div>
+								<div class="col-md-1">
+									
+									<button type="button" class="btn btn-danger btn-icon remove"><i class="icon-cancel-circle2" title="Remove"></i></button>
+								</div>
+							</div>
+						</div>		
 			</div>
 
 		</div>
@@ -178,6 +204,24 @@
 		    FormValidation.init();
 		});
 	</script>
+
+	<script type="text/javascript">
+    $(document).ready(function() {
+
+        $(".add-more").click(function(){
+            var html = $(".copy").html();
+            $(".before-add-more").before(html);
+
+        });
+
+        $("body").on("click",".remove",function(){
+            $(this).parents(".control-group").remove();
+        });
+
+    });
+	</script>
+
+
 	<script type="text/javascript">
 		$( document ).ready(function() {
 

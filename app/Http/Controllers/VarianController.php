@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\Varian;
 use App\Model\Produk;
+use App\Model\IsiVarian;
 
 class VarianController extends Controller
 {
@@ -16,9 +17,9 @@ class VarianController extends Controller
     public function index()
     {
         $varian = Varian::all();
-        $produk = Produk::all();
+        $isi_varian = IsiVarian::all();
 
-        return view('varian.index', compact('varian'));
+        return view('varian.index', compact('varian', 'isi_varian'));
     }
 
     /**
@@ -44,8 +45,32 @@ class VarianController extends Controller
             'jenis_varian'=>'required',            
         ]);
 
-        $data = $request->except(['_token', '_method']);
+        // $data = $request->except(['_token', '_method']);
+        $data = [];
+        $isivarian = [];
+        // dd($request);
+
+        $data['produk_id'] = $request->produk_id;
+        $data['jenis_varian'] = $request->jenis_varian;
+        
+        // dd($data);
         $store = Varian::create($data);
+
+        if ($store) {
+            $id_prim = $store->id;
+
+            foreach ($request->isi_varian as $key => $value) {
+                // dd($isi);
+                if ($value != null) {
+                    $isivarian['varian_id'] = $id_prim;
+                $isivarian['varian'] = $value;
+                
+
+                $store2 = IsiVarian::create($isivarian);
+                }
+            
+            }
+        }
 
         return redirect('/varian')->with('success', 'Varian berhasil ditambahkan!');
     }
@@ -70,7 +95,7 @@ class VarianController extends Controller
     public function edit($id)
     {
         $varian = Varian::find($id);
-        $list_produk = produk::all();
+        $list_produk = Produk::all();
         return view('varian.edit', compact('varian', 'list_produk'));
     }
 
@@ -86,10 +111,37 @@ class VarianController extends Controller
         $data = $request->except(['_token', '_method']);
 
         $varian = Varian::find($id);
+        $detail_varian = IsiVarian::where('varian_id', $id)->delete(); //ngambil data isi varian yang mau di hapus
+        
+        // dd($request);
 
-        $varian->update($data);
+        $data = [];
+        $isivarian = [];
+        // dd($request);
 
-        return redirect('/varian')->with('success', 'varian berhasil diubah!');
+        $data['produk_id'] = $request->produk_id;
+        $data['jenis_varian'] = $request->jenis_varian;
+        
+        // dd($data);
+        $store = $varian->update($data);
+
+        if ($store) {
+            $id_prim = $varian->id;
+
+            foreach ($request->isi_varian as $key => $value) {
+                // dd($isi);
+                if ($value != null) {
+                    $isivarian['varian_id'] = $id_prim;
+                $isivarian['varian'] = $value;
+                
+
+                $store2 = IsiVarian::create($isivarian);
+                }
+            
+            }
+        }
+
+        return redirect('/varian')->with('success', 'Varian berhasil diedit!');
     }
 
     /**
@@ -100,7 +152,7 @@ class VarianController extends Controller
      */
     public function destroy($id)
     {
-        $varian = varian::find($id);
+        $varian = Varian::find($id);
         $varian->delete();
 
         return redirect('/varian')->with('success', 'varian berhasil dihapus!');

@@ -39,7 +39,8 @@
 					<tr>
 						<th>No</th>
 						<th>Nama Produk</th>
-						<th>Nama Varian</th>
+						<th>Jenis Varian</th>
+						<th>Isi Varian</th>
 						<th class="text-center">Actions</th>
 					</tr>
 				</thead>
@@ -51,6 +52,15 @@
 				        <td>{{$i}}</td>
 				        <td><div class="datatable-column-width">{{@$varian->produk->nama}}</div></td>
 				        <td><div class="datatable-column-width">{{$varian->jenis_varian}}</div></td>
+						{{-- <td><div class="datatable-column-width">{{@$varian->isi_varian}}</div></td> --}}
+						<td><div class="datatable-column-width">
+						@foreach($varian->isi_varian as $isivn)
+							{{$isivn->varian}}
+							@if (!$loop->last)
+							,
+							@endif
+						@endforeach
+						</div></td>	
 				        <td align="center">
 							<div class="list-icons">
 								<div class="dropdown">
@@ -215,6 +225,7 @@
 		    DatatableBasic.init();
 		});
 	</script>
+	
 	<script type="text/javascript">
 		$( document ).ready(function() {
 	        // Default style
