@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Toko;
+use App\Model\Produk;
+use App\Model\Ulasan;
+use App\Model\Transaksi;
+use App\Model\DetailTransaksi;
 
 class TokoController extends Controller
 {
@@ -18,10 +22,20 @@ class TokoController extends Controller
 
         //$total_penjualan = Pesanan::count(); //buat total penjualan
         //$user->ratings()->avg('rating_for_user'); buat rating
-        //$jumlah_produk = Produk::count();
+        $jumlah_produk = Produk::count();
+        $ulasan = Ulasan::avg('rating');
+        $total_penjualan = Transaksi::where('status', '3')->count();
+
+        $pendapatan = Transaksi::where('status', '3')->get();
+        $total_pendapatan = 0;
+        foreach ($pendapatan as $transaksi) {
+            // dd($transaksi->detail_transaksi);
+                $total_pendapatan += $transaksi->detail_transaksi->total;
+        }
+
+        // dd($total_pendapatan);
         
-        
-        return view('toko.index', compact('toko'));
+        return view('toko.index', compact('toko', 'jumlah_produk', 'ulasan', 'total_penjualan', 'total_pendapatan'));
     
     }
 

@@ -5,6 +5,9 @@
 	<!-- Page header -->
 	<div class="page-header page-header-light">
 		<div class="page-header-content header-elements-md-inline">
+			<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"></link>
+<link rel="stylesheet" href="css/font-awesome.min.css"> 
+<link href="summernote/summernote.css" rel="stylesheet">
 			<div class="page-title d-flex">
 				<h4><i class="icon-arrow-left52 mr-2"></i>Tambah Toko</h4>
 				<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
@@ -21,6 +24,9 @@
 			<div class="card-header header-elements-inline">
 			</div>
 			<div class="card-body">
+				<script src="js/jquery.min.js"></script>
+				<script src="js/bootstrap.min.js"></script>
+				<script src="summernote/summernote.min.js"></script>
 				<form id="submituser" class="form-validate-jquery" action="{{ route('toko.store')}}" method="post" enctype="multipart/form-data">
 					@csrf
 					<fieldset class="mb-3">
@@ -35,17 +41,17 @@
 						<div class="form-group row">
 							<label class="col-form-label col-lg-2">Alamat</label>
 							<div class="col-lg-10">
-								<input type="text" name="alamat" class="form-control border-teal border-1 @error('alamat') is-invalid @enderror" placeholder="Alamat" required autocomplete="off" value="{{ $toko ? $toko->alamat : '' }}">
+								<textarea name="alamat" rows="3" class="form-control border-teal border-1 @error('alamat') is-invalid @enderror" placeholder="Alamat" required autocomplete="off" >{{ $toko ? $toko->alamat : '' }}</textarea>
 							</div>
 						</div>
 						
 						<div class="form-group row">
 							<label class="col-form-label col-lg-2">Deskripsi</label>
 							<div class="col-lg-10">
-								<textarea name="deskripsi" rows="3" class="form-control border-teal border-1 @error('deskripsi') is-invalid @enderror" placeholder="Deskripsi" required autocomplete="off">{{ $toko ? $toko->deskripsi : '' }}</textarea>
-								{{-- <input type="text" rows="3" name="deskripsi" class="form-control border-teal border-1 @error('deskripsi') is-invalid @enderror" placeholder="Deskripsi" required autocomplete="off" value="{{ old('deskripsi') }}"> --}}
+								<textarea name="deskripsi" rows="3" class="summernote form-control border-teal border-1 @error('deskripsi') is-invalid @enderror" placeholder="Deskripsi" required autocomplete="off">{{ $toko ? $toko->deskripsi : '' }}</textarea>
 							</div>
 						</div>
+						
 						<div class="form-group row">
 							<label class="col-form-label col-lg-2">Logo</label>
 							{{-- <div class="col-lg-10">
@@ -90,6 +96,10 @@
 	<script src="{{asset('global_assets/js/plugins/pickers/pickadate/picker.time.js')}}"></script>
 	<script src="{{asset('global_assets/js/plugins/pickers/pickadate/legacy.js')}}"></script>
 	<script src="{{asset('global_assets/js/plugins/forms/styling/uniform.min.js')}}"></script>
+	
+	<script src="{{asset('global_assets/js/plugins/loaders/blockui.min.js')}}"></script>
+	<script src="{{asset('global_assets/js/plugins/editors/summernote/summernote.min.js')}}"></script>
+	<script src="{{asset('global_assets/js/demo_pages/editor_summernote.js')}}"></script>
 
 	<script src="{{asset('assets/js/app.js')}}"></script>
 	<script src="{{asset('global_assets/js/demo_pages/form_inputs.js')}}"></script>
@@ -107,6 +117,7 @@
 				}
 			})
 		});
+		
 		
         // Accessibility labels
         $('.pickadate-accessibility').pickadate({
@@ -236,5 +247,79 @@
 			@endif
 
 		});
+	</script>
+
+	<script>
+		/* ------------------------------------------------------------------------------
+ *
+ *  # Summernote editor
+ *
+ *  Demo JS code for editor_summernote.html page
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+// Setup module
+// ------------------------------
+
+var Summernote = function() {
+
+
+//
+// Setup module components
+//
+
+// Summernote
+var _componentSummernote = function() {
+	if (!$().summernote) {
+		console.warn('Warning - summernote.min.js is not loaded.');
+		return;
+	}
+
+	// Basic examples
+	// ------------------------------
+
+	// Default initialization
+	$('.summernote').summernote();
+
+	// Control editor height
+	$('.summernote-height').summernote({
+		height: 400
+	});
+
+// Uniform
+var _componentUniform = function() {
+	if (!$().uniform) {
+		console.warn('Warning - uniform.min.js is not loaded.');
+		return;
+	}
+
+	// Styled file input
+	$('.note-image-input').uniform({
+		fileButtonClass: 'action btn bg-warning-400'
+	});
+};
+
+
+//
+// Return objects assigned to module
+//
+
+return {
+	init: function() {
+		_componentSummernote();
+		_componentUniform();
+	}
+}
+}();
+
+
+// Initialize module
+// ------------------------------
+
+document.addEventListener('DOMContentLoaded', function() {
+Summernote.init();
+});
+
 	</script>
 @endsection
