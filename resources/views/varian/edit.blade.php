@@ -6,7 +6,7 @@
 	<div class="page-header page-header-light">
 		<div class="page-header-content header-elements-md-inline">
 			<div class="page-title d-flex">
-				<h4><i class="icon-arrow-left52 mr-2"></i>Ubah Jenis Varian</h4>
+				<h4><i class="icon-arrow-left52 mr-2"></i>Ubah Varian</h4>
 				<a href="{{ url('/varian')}}" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 			</div>
 		</div>
@@ -25,7 +25,7 @@
 					@method('PATCH')
 					@csrf
 					<fieldset class="mb-3">
-						<legend class="text-uppercase font-size-sm font-weight-bold">Data Jenis Varian</legend>
+						<legend class="text-uppercase font-size-sm font-weight-bold">Data Varian</legend>
 
 						<div class="form-group row">
 							<label class="col-form-label col-lg-2">Nama Produk</label>
@@ -41,7 +41,6 @@
 						<div class="form-group row">
 							<label class="col-form-label col-lg-2">Nama Varian</label>
 							<div class="col-lg-10">
-
 								<input type="text" name="jenis_varian" class="form-control border-teal border-1 @error('janis_varian') is-invalid @enderror" placeholder="Nama Varian" required autofocus autocomplete="off" value="{{ ( old('jenis_varian') ) ? old('jenis_varian') : $varian->jenis_varian }}">
 							</div>
 						</div>
@@ -198,13 +197,13 @@
 		                }
 		            },
 		            messages: {
-		                nama: {
+		                produk_id: {
 		                    required: 'Mohon diisi.'
 		                },
-		                email: {
+		                jenis_varian: {
 		                    required: 'Mohon diisi.'
 		                },
-		                no_telp: {
+		                isi_varian[]: {
 		                    required: 'Mohon diisi.'
 		                },
 		            },
@@ -224,22 +223,6 @@
 		    }
 		}();
 
-	
-    	$(document).ready(function() {
-
-			$(".add-more").click(function(){
-				var html = $(".copy").html();
-				$(".before-add-more").before(html);
-
-			});
-
-			$("body").on("click",".remove",function(){
-				$(this).parents(".control-group").remove();
-			});
-
-		});
-	
-
 
 		// Initialize module
 		// ------------------------------
@@ -248,6 +231,23 @@
 		    FormValidation.init();
 		});
 	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+        $(".add-more").click(function(){
+            var html = $(".copy").html();
+            $(".before-add-more").before(html);
+
+        });
+
+        $("body").on("click",".remove",function(){
+            $(this).parents(".control-group").remove();
+        });
+
+    });
+	</script>
+
 	<script type="text/javascript">
 		$( document ).ready(function() {
 

@@ -176,7 +176,13 @@
 		                }
 		            },
 		            messages: {
-		                nama: {
+		                produk_id: {
+		                    required: 'Mohon diisi.'
+		                },
+						jenis_varian: {
+		                    required: 'Mohon diisi.'
+		                },
+		                isi_varian[]: {
 		                    required: 'Mohon diisi.'
 		                },
 		            },

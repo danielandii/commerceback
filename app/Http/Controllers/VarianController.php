@@ -52,6 +52,7 @@ class VarianController extends Controller
 
         $data['produk_id'] = $request->produk_id;
         $data['jenis_varian'] = $request->jenis_varian;
+        // $data['thubmnail'] = 0;
         
         // dd($data);
         $store = Varian::create($data);
@@ -64,7 +65,7 @@ class VarianController extends Controller
                 if ($value != null) {
                     $isivarian['varian_id'] = $id_prim;
                 $isivarian['varian'] = $value;
-                
+                // $isivarian['thubmnail'] = 0;
 
                 $store2 = IsiVarian::create($isivarian);
                 }
