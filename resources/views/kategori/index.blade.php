@@ -39,19 +39,24 @@
 					<tr>
 						<th>No</th>
 						<th>Nama Kategori</th>
-						<th style="width:30%">Deskripsi</th>
+						<th>Deskripsi</th>
 						<th>Logo</th>
 						<th class="text-center">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
+					
 				@if(!$kategori->isEmpty())
-					@php ($i = 1)
+					@php ($i = 1) @endphp
 					@foreach($kategori as $kategori)
 				    <tr> 
 				        <td>{{$i}}</td>
 				        <td><div class="datatable-column-width">{{$kategori->nama}}</div></td>
-						<td><div class="datatable-column-width">{{$kategori->deskripsi}}</div></td>
+						<td><div class="datatable-column-width">
+							@php
+								echo($kategori->deskripsi) 
+							@endphp	
+						</div></td>
 						<td>
 							<div class="datatable-column-width">
 								<a href="{{ $kategori->url_logo ? $kategori->url_logo : asset('global_assets/images/user-default.png') }}" data-popup="lightbox">
@@ -147,8 +152,8 @@
 		            autoWidth: false,
 		            columnDefs: [{ 
 		                orderable: false,
-		                width: 100,
-		                targets: [ 4 ]
+		                width: 180,
+		                targets: [ 2,3,4 ]
 		            }],
 		            dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
 		            language: {

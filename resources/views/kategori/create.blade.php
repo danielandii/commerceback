@@ -35,7 +35,7 @@
 						<div class="form-group row">
 							<label class="col-form-label col-lg-2">Deskripsi</label>
 							<div class="col-lg-10">
-								<textarea name="deskripsi" rows="3" class="form-control border-teal border-1 @error('deskripsi') is-invalid @enderror" placeholder="Deskripsi" required autocomplete="off" value="{{ old('deskripsi') }}"></textarea>
+								<textarea name="deskripsi" rows="3" class="summernote form-control border-teal border-1 @error('deskripsi') is-invalid @enderror" placeholder="Deskripsi" required autocomplete="off" value="{{ old('deskripsi') }}"></textarea>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -74,6 +74,10 @@
 	<script src="{{asset('global_assets/js/plugins/pickers/pickadate/picker.time.js')}}"></script>
 	<script src="{{asset('global_assets/js/plugins/pickers/pickadate/legacy.js')}}"></script>
 	<script src="{{asset('global_assets/js/plugins/forms/styling/uniform.min.js')}}"></script>
+
+	<script src="{{asset('global_assets/js/plugins/loaders/blockui.min.js')}}"></script>
+	<script src="{{asset('global_assets/js/plugins/editors/summernote/summernote.min.js')}}"></script>
+	<script src="{{asset('global_assets/js/demo_pages/editor_summernote.js')}}"></script>
 
 	<script src="{{asset('assets/js/app.js')}}"></script>
 	<script src="{{asset('global_assets/js/demo_pages/form_inputs.js')}}"></script>
@@ -158,9 +162,9 @@
 		                deskripsi: {
 		                    required: 'Mohon diisi.'
 		                },
-		                url_logo: {
-		                    required: 'Mohon diisi.'
-		                },
+		                // url_logo: {
+		                //     required: 'Mohon diisi.'
+		                // },
 		            },
 		        });
 
@@ -219,6 +223,55 @@
 				@endforeach
 			@endif
 
+		});
+	</script>
+
+	<script>
+		// Setup module
+		var Summernote = function() {
+
+		// Setup module components
+		// Summernote
+		var _componentSummernote = function() {
+			if (!$().summernote) {
+				console.warn('Warning - summernote.min.js is not loaded.');
+				return;
+			}
+
+			// Basic examples
+			// Default initialization
+			$('.summernote').summernote();
+
+			// Control editor height
+			$('.summernote-height').summernote({
+				height: 400
+			});
+
+		// Uniform
+		var _componentUniform = function() {
+			if (!$().uniform) {
+				console.warn('Warning - uniform.min.js is not loaded.');
+				return;
+			}
+
+			// Styled file input
+			$('.note-image-input').uniform({
+				fileButtonClass: 'action btn bg-warning-400'
+			});
+		};
+
+		// Return objects assigned to module
+		return {
+			init: function() {
+				_componentSummernote();
+				_componentUniform();
+			}
+		}
+		}();
+
+		// Initialize module
+		document.addEventListener('DOMContentLoaded', function() {
+		Summernote.init();
 		});
 	</script>
 @endsection

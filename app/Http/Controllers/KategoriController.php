@@ -96,11 +96,11 @@ class KategoriController extends Controller
         $data = $request->except(['_token', '_method', 'url_logo']);
 
         $kategori = Kategori::find($id);
-
+        
         $tujuan_upload = 'attachment/kategori';
         $gambar = $request->file('url_logo');
+        
         if($gambar){
-
             $nama_gambar = preg_replace('/[^A-Za-z0-9_\-]/', '_', $request->get('nama'))."_".time().".".$gambar->getClientOriginalExtension(); //."_".$gambar->getClientOriginalName();
             $up1 = $gambar->move($tujuan_upload,$nama_gambar);
             if($up1){
@@ -125,8 +125,32 @@ class KategoriController extends Controller
     public function destroy($id)
     {
         $kategori = Kategori::find($id);
+
+        $gambar = GambarProduk::where('produk_id', $id);
+        $list_gambar = $gambar->get();
+
+        if($gambar->delete()){
+            foreach($list_gambar as $dgambar){
+                if(file_exists(public_path($dgambar->url_gambar))){
+                    \File::delete(public_path($dgambar->url_gambar));
+                }
+            }
+        }
+
         $kategori->delete();
 
         return redirect('/kategori')->with('success', 'Kategori berhasil dihapus!');
+    }
+
+    public function get_kategori()
+    {
+        $kategori = Kategori::all();
+        return response()->json($kategori);
+    }
+
+    public function get_kategori_detail($id)
+    {
+        $kategori = Kategori::find($id);
+        return response()->json($kategori);
     }
 }

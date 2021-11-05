@@ -9,8 +9,9 @@ class Kategori extends Model
     protected $table = 'kategori';
     protected $fillable = ['nama','deskripsi','url_logo'];
 
-    public function peminjam()
+    public function produk()
     {
-        return $this->hasMany('App\Produk', 'kategori_id', 'id');
+        // return $this->hasMany('App\Model\Produk',);
+        return $this->hasMany('App\Model\Produk', 'kategori_id', 'id');
     }
 }
