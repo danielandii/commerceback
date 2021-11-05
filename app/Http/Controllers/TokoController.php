@@ -19,9 +19,6 @@ class TokoController extends Controller
     public function index()
     {
         $toko = Toko::first();
-
-        //$total_penjualan = Pesanan::count(); //buat total penjualan
-        //$user->ratings()->avg('rating_for_user'); buat rating
         $jumlah_produk = Produk::count();
         $ulasan = Ulasan::avg('rating');
         $total_penjualan = Transaksi::where('status', '3')->count();
@@ -29,12 +26,9 @@ class TokoController extends Controller
         $pendapatan = Transaksi::where('status', '3')->get();
         $total_pendapatan = 0;
         foreach ($pendapatan as $transaksi) {
-            // dd($transaksi->detail_transaksi);
                 $total_pendapatan += $transaksi->detail_transaksi->total;
         }
-
-        // dd($total_pendapatan);
-        
+      
         return view('toko.index', compact('toko', 'jumlah_produk', 'ulasan', 'total_penjualan', 'total_pendapatan'));
     
     }
@@ -73,7 +67,6 @@ class TokoController extends Controller
                     [ 'nama' => $request->nama , 'alamat' => $request->alamat, 'deskripsi' => $request->deskripsi, 'url_logo' => $tujuan_upload.'/'.$nama_gambar ] //nyimpan db
                 );
                 return redirect('/toko')->with('success', 'toko berhasil disimpan!');
-                // $data['url_logo'] = $tujuan_upload.'/'.$nama_gambar;
             }
         }
 
@@ -86,14 +79,6 @@ class TokoController extends Controller
 
         return redirect('/toko')->with('success', 'toko berhasil disimpan!');
 
-        // $request->validate([
-        //     // 'toko_id'=>'required',
-        //     'nama'=>'required',
-        //     'alamat'=>'required',
-        //     'deskripsi'=>'required',
-        //     'rating'=>'required',
-        //     'url_logo'=>'required',
-        // ]);
     }
 
     /**
