@@ -41,13 +41,11 @@
 						<th>Nama Kategori</th>
 						<th>Nama Produk</th>
 						<th>Deskripsi</th>
-						<th>Jenis Varian</th>
 						<th>Varian</th>
 						<th>Gambar</th>
 						<th>Harga</th>
 						<th>Stok</th>
 						<th>Rating</th>
-						<th>Total Penjualan</th>
 						<th class="text-center">Actions</th>
 					</tr>
 				</thead>
@@ -59,48 +57,33 @@
 				        <td>{{$i}}</td>
                         <td><div class="datatable-column-width">{{@$produk->kategori->nama}}</div></td> {{--M-1--}}
 				        <td><div class="datatable-column-width">{{$produk->nama}}</div></td>
-						<td><div class="datatable-column-width">{{$produk->deskripsi}}</div></td>
+						<td><a href="{{ route('produk.detail_deskripsi', $produk->id) }}"><i class="far fa-file-alt mr-3 fa-2x"></i></div></td>
 						<td><div class="datatable-column-width">
 						@foreach($produk->varian as $varian) {{--1-M--}}
-						{{@$varian->jenis_varian}}
-						@if (!$loop->last)
-						,
-						@endif
-						@endforeach
-						</div></td>	
-						<td><div class="datatable-column-width">
-						@foreach($produk->varian as $vn) {{--M-1 kalo relasainya bersambung--}}
-						{{-- {{$vn}} --}}
-						@foreach($vn->isi_varian as $isi_varian)   
-							{{$isi_varian->varian}}
+						<span class="font-weight-semibold">{{@$varian->jenis_varian}}</span>
+						: 
+						@foreach($varian->isi_varian as $isi)
+							{{$isi->varian}}
 							@if (!$loop->last)
 							,
 							@endif
 						@endforeach
-						{{-- {{@$produk->varian->isi_varian->varian}} --}}
+							<br>
 						@endforeach
 						</div></td>	
 						<td><div class="datatable-column-width">
-							
-							@foreach($produk->gambar as $gambar) {{-- 1-M --}}
-							@if ($gambar->is_thumbnail==1)
-							<span>thumbnail:</span><br>
-							@else 
-							
-							<span>gambar:</span><br>
-							@endif
-							
-							<a href="{{ $gambar->url_gambar ? $gambar->url_gambar : asset('global_assets/images/user-default.png') }}" data-popup="lightbox">
-								<img src="{{ $gambar->url_gambar ? asset($gambar->url_gambar) : asset('global_assets/images/user-default.png') }}" class="img-preview rounded-round mr-1" width="50%" style="object-fit:contain">
-							</a>
+							{{-- 1-M --}}
+							<a href="{{ route('produk.detail_gambar', $produk->id) }}"><i class="far fa-image mr-3 fa-2x center"></i></a>
+							@foreach($produk->gambar as $gambar)
 							@endforeach
-							{{-- <img src="{{ $thumb->url_gambar ? asset($thumb->url_gambar) : asset('global_assets/images/user-default.png') }}" class="img-preview rounded-round mr-2" width="50%" style="object-fit:contain"> --}}
-						</div></td>	
-						{{-- <td><div class="datatable-column-width">{{$produk->gambar}}</div></td> --}}
-						<td><div class="datatable-column-width">{{$produk->harga}}</div></td>
+						</div></td>
+						<td><div class="datatable-column-width">{{"Rp. ".format_uang($produk->harga)}}</div></td>
 						<td><div class="datatable-column-width">{{$produk->stok}}</div></td>
-						<td><div class="datatable-column-width">{{$produk->rating}}</div></td>
-						<td><div class="datatable-column-width">{{$produk->total_penjualan}}</div></td>
+						<td>
+							<div class="datatable-column-width">
+								{{ $produk->ulasan->avg('rating') }}
+							</div></td>
+						{{--/{{$produk->total_penjualan}}--}}
 				        <td align="center">
 							<div class="list-icons">
 								<div class="dropdown">
@@ -119,7 +102,7 @@
 				    @php ($i++)
 				    @endforeach
 				@else
-				  	<tr><td align="center" colspan="5">Data Kosong</td></tr>
+				  	 <tr><td align="center" colspan="11">Data Kosong</td></tr> {{-- sesuai jumlah kolom --}}
 				@endif 
 				    
 				</tbody>
@@ -190,7 +173,7 @@
 		            columnDefs: [{ 
 		                orderable: false,
 		                width: 100,
-		                targets: [ 4 ]
+		                targets: [ 3,4,5,10 ]
 		            }],
 		            dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
 		            language: {

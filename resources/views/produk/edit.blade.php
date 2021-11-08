@@ -47,7 +47,7 @@
 						<div class="form-group row">
 							<label class="col-form-label col-lg-2">Deskripsi</label>
 							<div class="col-lg-10">
-								<textarea name="deskripsi" rows="3" class="form-control border-teal border-1 @error('deskripsi') is-invalid @enderror" placeholder="Deskripsi" required autocomplete="off" >{{ (old('deskripsi')) ? old('deskripsi') : $produk->deskripsi }}</textarea>
+								<textarea name="deskripsi" rows="3" class="summernote form-control border-teal border-1 @error('deskripsi') is-invalid @enderror" placeholder="Deskripsi" required autocomplete="off" >{{ (old('deskripsi')) ? old('deskripsi') : $produk->deskripsi }}</textarea>
 							</div>
 						</div>
 						
@@ -56,7 +56,7 @@
 							<label class="col-form-label col-lg-2">Sampul</label>
 							<div class="col-lg-10">
 								<div class="col-sm-3 mb-2">
-									<a href="{{ url('destroygambar', $thumb->id)}}"><i class="icon-x"></i></a>
+									<a class="delbutton" data-toggle="modal" data-target="#modal_theme_danger" data-uri="{{ url('produkdestroygambar', $thumb->id)}}"><i class="icon-x"></i></a>
 									<a href="{{ $thumb->url_gambar ? asset($thumb->url_gambar) : asset('global_assets/images/user-default.png') }}" data-popup="lightbox">
 										<img src="{{ $thumb->url_gambar ? asset($thumb->url_gambar) : asset('global_assets/images/user-default.png') }}" class="img-preview rounded-round mr-2" width="50%" style="object-fit:contain">
 									</a>
@@ -79,7 +79,7 @@
 								@if(count($gamb) > 0)
 								<div class="col-sm-10 mb-2 row"> {{--Nampilin gambar yang pernah diinput--}}
 									@foreach($gamb as $gambar)
-									<a href="{{ url('destroygambar', $gambar->id)}}"><i class="icon-x"></i></a>
+									<a class="delbutton" data-toggle="modal" data-target="#modal_theme_danger" data-uri="{{ url('produkdestroygambar', $gambar->id)}}"><i class="icon-x"></i></a>
 									<a href="{{ $gambar->url_gambar ? asset($gambar->url_gambar) : asset('global_assets/images/user-default.png') }}" data-popup="lightbox">
 										<img src="{{ $gambar->url_gambar ? asset($gambar->url_gambar) : asset('global_assets/images/user-default.png') }}" class="img-preview rounded-round mr-2" width="50%" style="object-fit:contain">
 									</a>
@@ -117,6 +117,32 @@
 
 	</div>
 	<!-- /content area -->
+
+	<!-- Danger modal -->
+	<div id="modal_theme_danger" class="modal fade" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header bg-danger" align="center">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<form action="" method="post" id="delform">
+				    @csrf
+				    @method('DELETE')
+					<div class="modal-body" align="center">
+						<h2> Hapus Data? </h2>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-link" data-dismiss="modal">Batal</button>
+						<button type="submit" class="btn bg-danger">Hapus</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- /default modal -->
+
 @endsection
 
 @section('js')
@@ -134,11 +160,23 @@
 	<script src="{{asset('global_assets/js/plugins/pickers/pickadate/legacy.js')}}"></script>
 	<script src="{{asset('global_assets/js/plugins/forms/styling/uniform.min.js')}}"></script>
 
+	<script src="{{asset('global_assets/js/plugins/loaders/blockui.min.js')}}"></script>
+	<script src="{{asset('global_assets/js/plugins/editors/summernote/summernote.min.js')}}"></script>
+	<script src="{{asset('global_assets/js/demo_pages/editor_summernote.js')}}"></script>
+
 	<script src="{{asset('assets/js/app.js')}}"></script>
 	<script src="{{asset('global_assets/js/demo_pages/form_inputs.js')}}"></script>
 	<script src="{{asset('global_assets/js/demo_pages/form_checkboxes_radios.js')}}"></script>
 	<script type="text/javascript">
-
+	
+		//modal delete
+		$(document).on("click", ".delbutton", function () {
+		     var url = $(this).data('uri');
+		     $("#delform").attr("action", url);
+		     $("#uri").text("" + url);
+		});
+		
+		
 		$(document).ready(function () {
 			
 			$('.submitBtn').click(function(){
@@ -211,13 +249,19 @@
 		                }
 		            },
 		            messages: {
+						kategori_id: {
+		                    required: 'Mohon diisi.'
+		                },
 		                nama: {
 		                    required: 'Mohon diisi.'
 		                },
-		                deskripsi: {
+						deskripsi: {
 		                    required: 'Mohon diisi.'
 		                },
-		                url_logo: {
+		                harga: {
+		                    required: 'Mohon diisi.'
+		                },
+		                stok: {
 		                    required: 'Mohon diisi.'
 		                },
 		            },
@@ -278,6 +322,55 @@
 				@endforeach
 			@endif
 
+		});
+	</script>
+
+	<script>
+		// Setup module
+		var Summernote = function() {
+
+		// Setup module components
+		// Summernote
+		var _componentSummernote = function() {
+			if (!$().summernote) {
+				console.warn('Warning - summernote.min.js is not loaded.');
+				return;
+			}
+
+			// Basic examples
+			// Default initialization
+			$('.summernote').summernote();
+
+			// Control editor height
+			$('.summernote-height').summernote({
+				height: 400
+			});
+
+		// Uniform
+		var _componentUniform = function() {
+			if (!$().uniform) {
+				console.warn('Warning - uniform.min.js is not loaded.');
+				return;
+			}
+
+			// Styled file input
+			$('.note-image-input').uniform({
+				fileButtonClass: 'action btn bg-warning-400'
+			});
+		};
+
+		// Return objects assigned to module
+		return {
+			init: function() {
+				_componentSummernote();
+				_componentUniform();
+			}
+		}
+		}();
+
+		// Initialize module
+		document.addEventListener('DOMContentLoaded', function() {
+		Summernote.init();
 		});
 	</script>
 @endsection

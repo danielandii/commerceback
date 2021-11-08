@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Produk extends Model
 {
     protected $table = 'produk';
-    // protected $fillable = ['nama','deskripsi','url_logo'];
     protected $guarded = ['id', 'created_at', 'update_at'];
 
     public function kategori()
@@ -29,5 +28,15 @@ class Produk extends Model
     public function gambar()
     {
         return $this->hasMany('App\Model\GambarProduk', 'produk_id', 'id');
+    }
+
+    public function ulasan()
+    {
+        return $this->hasMany('App\Model\Ulasan', 'produk_id', 'id');
+    }
+
+    public function detail_transaksi()
+    {
+        return $this->hasOne('App\Model\DetailTransaksi', 'produk_id', 'id');
     }
 }

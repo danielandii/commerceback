@@ -6,7 +6,7 @@
 	<div class="page-header page-header-light">
 		<div class="page-header-content header-elements-md-inline">
 			<div class="page-title d-flex">
-				<h4><i class="icon-arrow-left52 mr-2"></i>Tambah Produk</h4>
+				<h4><i class="icon-arrow-left52 mr-2"></i>Gambar Produk</h4>
 				<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 			</div>
 		</div>
@@ -21,84 +21,12 @@
 			<div class="card-header header-elements-inline">
 			</div>
 			<div class="card-body">
-				<form id="submituser" class="form-validate-jquery" action="{{ route('produk.store')}}" method="post" enctype="multipart/form-data">
-					@csrf
 					<fieldset class="mb-3">
-						<legend class="text-uppercase font-size-sm font-weight-bold">Data Produk</legend>
+						<legend class="text-uppercase font-size-sm font-weight-bold">Gambar {{@$produk->kategori->nama}} seri {{$produk->nama}}</legend>
 
-						<div class="form-group row">
-							<label class="col-form-label col-lg-2">Nama Kategori</label>
-							<div class="col-lg-10">
-								<select name="kategori_id" class="form-control form-control-select2" data-container-css-class="border-teal" data-dropdown-css-class="border-teal" required>
-									<option value="" placeholder="">-- Nama Kategori --</option>
-                                    @foreach($list_kategori  as $kategori)
-										<option value="{{$kategori->id}}">{{$kategori->nama}}</option>
-									@endforeach
-                                </select>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-form-label col-lg-2">Nama Produk</label>
-							<div class="col-lg-10">
-								<input type="text" name="nama" class="form-control border-teal border-1 @error('nama') is-invalid @enderror" placeholder="Nama Produk" required autofocus autocomplete="off" value="{{ old('nama') }}">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-form-label col-lg-2">Deskripsi</label>
-							<div class="col-lg-10">
-								<textarea name="deskripsi" rows="3" class="summernote form-control border-teal border-1 @error('deskripsi') is-invalid @enderror" placeholder="Deskripsi" required autocomplete="off" value="{{ old('deskripsi') }}"></textarea>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-form-label col-lg-2">Sampul</label>
-							<div class="col-lg-10">
-								<input type="file" name="gambar_thumbnail" class="form-control border-teal border-1 @error('url_gambar') is-invalid @enderror" placeholder="Thumbnail" autocomplete="off" value="{{ old('url_gambar') }}">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-form-label col-lg-2">Gambar</label>
-							<div class="col-lg-10">
-								<input type="file" name="url_gambar[]" class="form-control border-teal border-1 @error('url_gambar') is-invalid @enderror" placeholder="Gambar" autocomplete="off" value="{{ old('url_gambar') }}" multiple >
-							</div>
-							{{-- <div class="col-md-1">
-								<button type="button" class="btn btn-success btn-icon add-more" style="display:block"><i class="icon-plus-circle2" title="Add"></i></button>
-							</div> --}}
-						</div>
-					
-						{{-- <div class="before-add-more">
-						</div>				 --}}
-						<div class="form-group row">
-							<label class="col-form-label col-lg-2">Harga</label>
-							<div class="col-lg-10">
-								<input type="number" name="harga" class="form-control border-teal border-1 @error('harga') is-invalid @enderror" placeholder="Harga" required autocomplete="off" value="{{ old('harga') }}">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-form-label col-lg-2">Stok</label>
-							<div class="col-lg-10">
-								<input type="number" name="stok" class="form-control border-teal border-1 @error('stok') is-invalid @enderror" placeholder="Stok" required autocomplete="off" value="{{ old('stok') }}">
-							</div>
-						</div>
-						
-					</fieldset>
-					<div class="text-right">
-						<a href="{{ url('/produk')}}" class="btn btn-light">Kembali <i class="icon-undo"></i></a>
-						<button type="submit" class="btn btn-primary submitBtn">Simpan <i class="icon-paperplane ml-2"></i></button>
-					</div>
-				</form>
-				{{-- <div class="copy" style="display: none">
-					<div class="form-group row control-group">
-						<label class="col-form-label col-lg-2"> </label>
-							<div class="col-lg-9">
-									
-								<input type="file" name="url_gambar[]" class="form-control border-teal border-1" placeholder="Gambar Produk">
-							</div>
-							<div class="col-md-1">
-									
-								<button type="button" class="btn btn-danger btn-icon remove"><i class="icon-cancel-circle2" title="Remove"></i></button>
-							</div>
-					</div>
-				</div>	 --}}
+						@php
+							echo($produk->deskripsi) 
+						@endphp
 			</div>
 
 		</div>

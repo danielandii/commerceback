@@ -8,6 +8,7 @@ use App\Model\Produk;
 use App\Model\Kategori;
 use App\Model\Varian;
 use App\Model\GambarProduk;
+use App\Model\Ulasan;
 
 
 class ProdukController extends Controller
@@ -22,10 +23,9 @@ class ProdukController extends Controller
         $produk = Produk::all();
         $varian = Varian::all();
         $isivarian = IsiVarian::all();
-        $gambarproduk = GambarProduk::all();
-        // $thumb = GambarProduk::where('produk_id', $id)->where('is_thumbnail', 1)->first();
+        $ulasan = Ulasan::avg('rating');
     
-        return view('produk.index', compact('produk', 'varian', 'isivarian','gambarproduk'));
+        return view('produk.index', compact('produk', 'varian', 'isivarian', 'ulasan'));
     }
 
     /**
@@ -48,6 +48,7 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'kategori_id'=>'required',
             'nama'=>'required',
             'deskripsi'=>'required',
             'harga'=>'required',
@@ -154,13 +155,13 @@ class ProdukController extends Controller
     public function update(Request $request, $id)
     {
         $data_utama = $request->except(['_token', '_method', 'gambar_thumbnail', 'url_gambar']);
-        $produk = produk::find($id);
+        $produk = Produk::find($id);
 
         $tujuan_upload = 'attachment/produk';
         $gambar = $request->file('gambar_thumbnail');
         
         $data = [];
-        if($gambar != null){
+        if($gambar){
             $hgambar = GambarProduk::where('produk_id', $produk->id)->where('is_thumbnail', 1)->delete();
             $nama_gambar = 'thumb_'.preg_replace('/[^A-Za-z0-9_\-]/', '_', $request->get('nama'))."_".date('his').".".$gambar->getClientOriginalExtension(); //."_".$gambar->getClientOriginalName();
             $up1 = $gambar->move($tujuan_upload,$nama_gambar);
@@ -179,7 +180,7 @@ class ProdukController extends Controller
         $gambar2 = $request->file('url_gambar');
         // dd($request);
             
-        if($gambar2 != null){
+        if($gambar2){
             $no = 1;
             foreach ($gambar2 as $item) {
                 $data2 = []; //data yang dimasukkan lebih dari 1
@@ -227,5 +228,23 @@ class ProdukController extends Controller
         $produk->delete();
 
         return redirect('/produk')->with('success', 'produk berhasil dihapus!');
+    }
+
+    public function detail_gambar($id)
+    {
+        $halaman = 'produk';
+        $produk = Produk::findOrFail($id);
+        // $thumb = GambarProduk::where('produk_id', $id)->where('is_thumbnail', 1)->first();
+    
+        return view('produk.detail_gambar', compact('produk', 'halaman'));
+    }
+
+    public function detail_deskripsi($id)
+    {
+        $halaman = 'produk';
+        $produk = Produk::findOrFail($id);
+        // $thumb = GambarProduk::where('produk_id', $id)->where('is_thumbnail', 1)->first();
+    
+        return view('produk.detail_deskripsi', compact('produk', 'halaman'));
     }
 }
