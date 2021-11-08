@@ -125,17 +125,13 @@ class KategoriController extends Controller
     public function destroy($id)
     {
         $kategori = Kategori::find($id);
-
-        $gambar = GambarProduk::where('produk_id', $id);
-        $list_gambar = $gambar->get();
-
-        if($gambar->delete()){
-            foreach($list_gambar as $dgambar){
-                if(file_exists(public_path($dgambar->url_gambar))){
-                    \File::delete(public_path($dgambar->url_gambar));
-                }
+        
+        $delete = $kategori->delete();
+            if($delete){
+                    if(file_exists(public_path($kategori->url_gambar))){
+                        \File::delete(public_path($kategori->url_gambar));
+                    }
             }
-        }
 
         $kategori->delete();
 
