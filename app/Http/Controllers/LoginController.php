@@ -25,7 +25,7 @@ class LoginController extends Controller
 	        'username' => $request->username,
 	        'password' => $request->password])
 	    ){
-	    	return redirect('/home');
+	    	return redirect('/toko');
 	        
 	    }
 	    return redirect('/login')->with('error', 'Invalid Email address or Password');
@@ -42,7 +42,7 @@ class LoginController extends Controller
 	    return  redirect('/login');
 	}
 
-    public function home()
+    public function toko()
     {
         return view("index");
     }

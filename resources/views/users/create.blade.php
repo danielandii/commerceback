@@ -38,17 +38,44 @@
 								<input type="email" name="email" class="form-control border-teal border-1 @error('email') is-invalid @enderror" placeholder="Email" required autocomplete="off" value="{{ old('email') }}">
 							</div>
 						</div>
-						
 						<div class="form-group row">
 							<label class="col-form-label col-lg-2">Username</label>
 							<div class="col-lg-10">
-								<input type="text" name="username" class="form-control border-teal border-1 @error('username') is-invalid @enderror" placeholder="Username" required autocomplete="off" value="{{ old('username') }}">
+								<input type="text" name="username" class="form-control border-teal border-1 @error('username') is-invalid @enderror" placeholder="Username" required autofocus autocomplete="off" value="{{ old('usernamae') }}">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-form-label col-lg-2">Password</label>
 							<div class="col-lg-10">
-								<input type="password" name="password" class="form-control border-teal border-1 @error('password') is-invalid @enderror" placeholder="Password" required autocomplete="off" value="{{ old('password') }}">
+								<input type="password" name="password" class="form-control border-teal border-1 @error('paassword') is-invalid @enderror" placeholder="Password" required autocomplete="off" value="{{ old('password') }}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2">No. HP</label>
+							<div class="col-lg-10">
+								<input type="text" name="no_telp" class="form-control border-teal border-1 @error('no_telp') is-invalid @enderror" placeholder="No HP" autofocus autocomplete="off" value="{{ old('no_telp') }}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2">Tanggal Lahir</label>
+							<div class="col-lg-10">
+								<input type="date" name="tgl_lahir" class="form-control border-teal border-1 @error('tgl_lahir') is-invalid @enderror" placeholder="Tanggal Lahir" autofocus autocomplete="off" value="{{ old('tgl_lahir') }}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2">Jenis Kelamin</label>
+							<div class="col-lg-10">
+								<select name="jns_kelamin" class="form-control form-control-select2" data-container-css-class="border-teal" data-dropdown-css-class="border-teal">
+									<option value="" placeholder="">-- Jenis Kelamin --</option>
+									<option value="Perempuan">Perempuan</option>
+									<option value="Laki-laki">Laki-laki</option>
+                                </select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2">Alamat</label>
+							<div class="col-lg-10">
+								<textarea name="alamat" rows="3" class="form-control border-teal border-1 @error('alamat') is-invalid @enderror" placeholder="Alamat" autocomplete="off" >{{ old('alamat') }}</textarea>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -169,25 +196,19 @@
 		                }
 		            },
 		            messages: {
+						username: {
+							required: 'Mohon diisi.'
+						},
+						password: {
+							required: 'Mohon diisi.'
+						},
 		                nama: {
 		                    required: 'Mohon diisi.'
 		                },
 		                email: {
 		                    required: 'Mohon diisi.'
 		                },
-		                no_telp: {
-		                    required: 'Mohon diisi.'
-		                },
-		                username: {
-		                    required: 'Mohon diisi.'
-		                },
-		                password: {
-		                    required: 'Mohon diisi.'
-		                },
 		                role: {
-		                    required: 'Mohon diisi.'
-		                },
-		                cabang_id: {
 		                    required: 'Mohon diisi.'
 		                },
 		            },

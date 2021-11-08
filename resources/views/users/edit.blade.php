@@ -39,7 +39,6 @@
 								<input type="email" name="email" class="form-control border-teal border-1 @error('email') is-invalid @enderror" placeholder="Email" required value="{{ ( old('email') ) ? old('email') : $user->email }}" autocomplete="off">
 							</div>
 						</div>
-						
 						<div class="form-group row">
 							<label class="col-form-label col-lg-2">Username</label>
 							<div class="col-lg-10">
@@ -50,6 +49,24 @@
 							<label class="col-form-label col-lg-2">Password</label>
 							<div class="col-lg-10">
 								<input type="password" name="password" class="form-control border-teal border-1 @error('password') is-invalid @enderror" placeholder="Password" autocomplete="off" value="{{ old('password') }}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2">No. HP</label>
+							<div class="col-lg-10">
+								<input type="text" name="no_telp" class="form-control border-teal border-1 @error('no_telp') is-invalid @enderror" placeholder="No. HP" autocomplete="off" value="{{ ( old('no_telp') ) ? old('no_telp') : $user->no_telp }}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2">Tanggal Lahir</label>
+							<div class="col-lg-10">
+								<input type="date" name="tgl_lahir" class="form-control border-teal border-1 @error('tgl_lahir') is-invalid @enderror" placeholder="Tanggal Lahir" autocomplete="off" value="{{ ( old('tgl_lahir') ) ? old('tgl_lahir') : $user->tgl_lahir }}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2">Alamat</label>
+							<div class="col-lg-10">
+								<textarea name="alamat" rows="3" class="form-control border-teal border-1 @error('alamat') is-invalid @enderror" placeholder="Alamat" autocomplete="off" >{{ ( old('alamt') ) ? old('alamat') : $user->alamat }}</textarea>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -161,9 +178,6 @@
 		                    required: 'Mohon diisi.'
 		                },
 		                email: {
-		                    required: 'Mohon diisi.'
-		                },
-		                telp: {
 		                    required: 'Mohon diisi.'
 		                },
 		                username: {

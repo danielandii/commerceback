@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Model\User;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -16,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-       
+    
         return view('users.index', compact('users'));
     }
 
@@ -43,6 +44,7 @@ class UserController extends Controller
             'email'=>'required',
             'username'=>'required',
             'password'=>'required',
+            'role'=>'required',
         ]);
 
         $data = $request->except(['_token', '_method']);
@@ -143,4 +145,14 @@ class UserController extends Controller
             return redirect('/changepass')->with('error', 'Password lama salah');
         }
     }
+
+    public function detail_user($id)
+    {
+        $halaman = 'users';
+        $user = User::findOrFail($id);
+    
+        return view('users.detail_user', compact('user', 'halaman'));
+    }
+
+   
 }

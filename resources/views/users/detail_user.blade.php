@@ -1,20 +1,12 @@
 @extends('layout')
 
-@section('css')
-<style type="text/css">
-	.datatable-column-width{
-		overflow: hidden; text-overflow: ellipsis; max-width: 200px;
-	}
-</style>
-@endsection
-
 @section('content')
 
 	<!-- Page header -->
 	<div class="page-header page-header-light">
 		<div class="page-header-content header-elements-md-inline">
 			<div class="page-title d-flex">
-				<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - Data User</h4>
+				<h4><i class="icon-arrow-left52 mr-2"></i>Detail Pendapatan</h4>
 				<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 			</div>
 		</div>
@@ -27,93 +19,70 @@
 		<!-- Hover rows -->
 		<div class="card">
 			<div class="card-header header-elements-inline">
-				<a href="{{ route('users.create')}}"><button type="button" class="btn btn-success rounded-round"><i class="icon-add mr-2"></i> Tambah</button></a>
 			</div>
-			{{-- @if (\Auth::user()->role==1)
-			
-				test
-			
-			@endif --}}
-			<table class="table datatable-basic table-hover">
-				<thead>
-					<tr>
-						<th>No</th>
-						<th>Nama</th>
-						<th>Username</th>
-						<th>Email</th>
-						<th>No. Telp</th>
-						<th>Alamat</th>
-						<th>Role</th>
-						<th class="text-center">Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-				@if(!$users->isEmpty())
-					@php ($i = 1)
-					@foreach($users as $user)
-				    <tr> 
-				        <td>{{$i}}</td>
-				        <td><div class="datatable-column-width">{{$user->nama}}</div></td>
-				        <td><div class="datatable-column-width">{{$user->username}}</div></td>
-						<td><div class="datatable-column-width">{{$user->email}}</div></td>
-						<td><div class="datatable-column-width">{{$user->no_telp}}</div></td>
-						<td><div class="datatable-column-width">{{$user->alamat}}</div></td>
-				        <td>{{ (config('custom.role.'.$user->role)) ? (config('custom.role.'.$user->role)) : '-' }}</td>
-				        <td align="center">
-							<div class="list-icons">
-								<div class="dropdown">
-									<a href="#" class="list-icons-item" data-toggle="dropdown">
-										<i class="icon-menu9"></i>
-									</a>
+			<div class="card-body">
+					<fieldset class="mb-3">
+						<legend class="font-size-mg font-weight-semibold">Username 
+							<h4 class="font-weight-bold">{{($user->username) ? ($user->username) : '-'}}</h4>
+							{{-- <h6 class="font-weight-normal text-right">{{$transaksi->tanggal_transaksi}}</h6> --}}
+						</legend>
 
-									<div class="dropdown-menu dropdown-menu-right">
-										<a href="{{ route('users.edit',$user->id)}}" class="dropdown-item"><i class="icon-pencil7"></i> Edit</a>
-										<a href="{{ route('users.detail_user',$user->id)}}" class="dropdown-item"><i class="icon-clipboard3"></i> Detail</a>
-							            <a class="dropdown-item delbutton" data-toggle="modal" data-target="#modal_theme_danger" data-uri="{{ route('users.destroy', $user->id)}}"><i class="icon-x"></i> Delete</a>
-									</div>
-								</div>
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2">Nama</label>
+							<div class="col-lg-10">
+								<div class="form-control-plaintext">{{($user->nama) ? ($user->nama) : '-'}}</div>
 							</div>
-				        </td>
-				    </tr>
-				    @php ($i++)
-				    @endforeach
-				@else
-				  	<tr><td align="center" colspan="8">Data Kosong</td></tr>
-				@endif 
-				    
-				</tbody>
-			</table>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2">Email</label>
+							<div class="col-lg-10">
+								<div class="form-control-plaintext">{{($user->email) ? ($user->email) : '-'}}</div>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2">No. Telp</label>
+							<div class="col-lg-10">
+								<div class="form-control-plaintext">{{($user->no_telp) ? ($user->no_telp) : '-'}}</div>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2">Tanggal Lahir</label>
+							<div class="col-lg-10">
+								<div class="form-control-plaintext">{{($user->tgl_lahir) ? ($user->tgl_lahir) : '-'}}</div>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2">Jenis Kelamnin</label>
+							<div class="col-lg-10">
+								<div class="form-control-plaintext">{{($user->jns_kelamin) ? ($user->jns_kelamin) : '-'}}</div>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2">Alamat</label>
+							<div class="col-lg-10">
+								<div class="form-control-plaintext">{{($user->alamat) ? ($user->alamat) : '-'}}</div>
+							</div>
+						</div>	
+
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2">Role</label>
+							<div class="col-lg-10">
+								<div class="form-control-plaintext">{{ (config('custom.role.'.$user->role)) ? (config('custom.role.'.$user->role)) : '-' }}</div>
+							</div>
+						</div>		 
+					</fieldset>
+			</div>
+
 		</div>
 		<!-- /hover rows -->
 
 	</div>
 	<!-- /content area -->
-
-    <!-- Danger modal -->
-	<div id="modal_theme_danger" class="modal fade" tabindex="-1">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header bg-danger" align="center">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-				</div>
-
-				<form action="" method="post" id="delform">
-				    @csrf
-				    @method('DELETE')
-					<div class="modal-body" align="center">
-						<h2> Hapus Data? </h2>
-					</div>
-
-					<div class="modal-footer">
-						<button type="button" class="btn btn-link" data-dismiss="modal">Batal</button>
-						<button type="submit" class="btn bg-danger">Hapus</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<!-- /default modal -->
-
 @endsection
 
 @section('js')
@@ -149,7 +118,7 @@
 		            columnDefs: [{ 
 		                orderable: false,
 		                width: 100,
-		                targets: [ 3,4,5,7 ]
+		                targets: [ 3,4,5,10 ]
 		            }],
 		            dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
 		            language: {
