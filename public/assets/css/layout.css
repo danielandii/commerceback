@@ -1101,3 +1101,39 @@ body {
     margin-left: 1.25rem; }
   .breadcrumb-line > .content-boxed > *:last-child {
     margin-right: 1.25rem; } }
+
+    #galeri .container-fluid, #galeri .container-sm, #galeri .container-md, #galeri .container-lg, #galeri .container-xl, #galeri .container-xxl {
+  max-width: 1920px;
+}
+#galeri .container-fluid .galeri-box, #galeri .container-sm .galeri-box, #galeri .container-md .galeri-box, #galeri .container-lg .galeri-box, #galeri .container-xl .galeri-box, #galeri .container-xxl .galeri-box {
+  position: relative;
+  display: block;
+}
+#galeri .container-fluid .galeri-box .galeri-box-caption, #galeri .container-sm .galeri-box .galeri-box-caption, #galeri .container-md .galeri-box .galeri-box-caption, #galeri .container-lg .galeri-box .galeri-box-caption, #galeri .container-xl .galeri-box .galeri-box-caption, #galeri .container-xxl .galeri-box .galeri-box-caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  opacity: 0;
+  color: #fff;
+  background: rgba(244, 98, 58, 0.9);
+  transition: opacity 0.25s ease;
+  text-align: center;
+}
+#galeri .container-fluid .galeri-box .galeri-box-caption .project-category, #galeri .container-sm .galeri-box .galeri-box-caption .project-category, #galeri .container-md .galeri-box .galeri-box-caption .project-category, #galeri .container-lg .galeri-box .galeri-box-caption .project-category, #galeri .container-xl .galeri-box .galeri-box-caption .project-category, #galeri .container-xxl .galeri-box .galeri-box-caption .project-category {
+  font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+#galeri .container-fluid .galeri-box .galeri-box-caption .project-name, #galeri .container-sm .galeri-box .galeri-box-caption .project-name, #galeri .container-md .galeri-box .galeri-box-caption .project-name, #galeri .container-lg .galeri-box .galeri-box-caption .project-name, #galeri .container-xl .galeri-box .galeri-box-caption .project-name, #galeri .container-xxl .galeri-box .galeri-box-caption .project-name {
+  font-size: 1.2rem;
+}
+#galeri .container-fluid .galeri-box:hover .galeri-box-caption, #galeri .container-sm .galeri-box:hover .galeri-box-caption, #galeri .container-md .galeri-box:hover .galeri-box-caption, #galeri .container-lg .galeri-box:hover .galeri-box-caption, #galeri .container-xl .galeri-box:hover .galeri-box-caption, #galeri .container-xxl .galeri-box:hover .galeri-box-caption {
+  opacity: 1;
+}
