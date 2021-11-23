@@ -279,4 +279,39 @@ class APITransaksiController extends Controller
             'data' => $result
         ], 200);
     }
+
+    public function metode_pembayaran()
+    {
+        $result['metode_pembayaran'] = config('custom.metode_pembayaran');
+        return response()->json([
+            'data' => $result
+        ], 200);
+    }
+
+    public function cek_status($no_pesanan)
+    {
+        $transaksi = Transaksi::where('no_pesanan', $no_pesanan)->get();
+
+        $result = [];
+        $i = 0;
+        foreach ($transaksi as $trans) {
+            $result['no_pesanan'] = $trans->no_pesanan;
+            $result['nama'] = $trans->nama;
+            $result['alamat'] = $trans->alamat;
+            $result['no_telp'] = $trans->no_telp;
+            $result['nama_produk'] = @$trans->detail_transaksi->produk->nama;
+            $result['harga_produk'] = "Rp. ".format_uang(@$trans->detail_transaksi->harga);
+            $result['jumlah_produk'] = @$trans->detail_transaksi->jumlah_produk;
+            $result['total'] = "Rp. ".format_uang(@$trans->detail_transaksi->total);
+            $result['metode_pembayaran'] = config('custom.metode_pembayaran.'.$trans->metode_pembayaran);
+            $result['bukti_pembayaran'] = (@$trans->bukti_pembayaran->url_bukti) ? (@$trans->bukti_pembayaran->url_bukti) : '-';
+            $result['tanggal_transaksi'] = $trans->tanggal_transaksi;
+            $result['status'] = config('custom.status.'.$trans->status);
+            $i++;
+        }
+
+        return response()->json([
+            'data' => $result
+        ], 200);
+    }
 }

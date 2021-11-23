@@ -150,15 +150,4 @@ class APIKategoriController extends Controller
         ], 200);
     }
 
-    public function get_kategori()
-    {
-        $kategori = Kategori::all();
-        return response()->json($kategori);
-    }
-
-    public function get_kategori_detail($id)
-    {
-        $kategori = Kategori::find($id);
-        return response()->json($kategori);
-    }
 }
