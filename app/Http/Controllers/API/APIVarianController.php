@@ -96,7 +96,22 @@ class APIVarianController extends Controller
      */
     public function show($id)
     {
-        //
+        $varian = Varian::Find($id);
+
+        $result = [];
+        $result['id'] = $varian->id;
+        $result['Nama Produk'] = @$varian->produk->nama;
+        $result['Jenis Varian'] = $varian->jenis_varian;
+        $j = 0;
+        foreach ($varian->isi_varian as $isivn) {
+            $result['Varian'][$j] =$isivn->varian;
+            $j++;
+        }
+           
+
+        return response()->json([
+            'data' => $result
+        ]);
     }
 
     /**
