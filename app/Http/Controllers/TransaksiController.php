@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\Transaksi;
 use App\Model\Produk;
-// use App\Model\User;
 use App\Model\BuktiPembayaran;
 use App\Model\DetailTransaksi;
+use Excel;
+use App\Exports\PesananExport;
+use App\Exports\PenjualanExport;
+
 
 
 
@@ -29,14 +32,14 @@ class TransaksiController extends Controller
     {
         $transaksi = Transaksi::where('status', '1')->orWhere('status', '2')->get();
 
-        return view('transaksi.index', compact('transaksi'));
+        return view('transaksi.index_pesanan', compact('transaksi'));
     }
 
     public function index2() //sudah sampai customer
     {
         $transaksi = Transaksi::where('status', '3')->get();
 
-        return view('transaksi.index', compact('transaksi'));
+        return view('transaksi.index_penjualan', compact('transaksi'));
     }
     /**
      * Show the form for creating a new resource.
@@ -230,5 +233,17 @@ class TransaksiController extends Controller
         // $thumb = GambarProduk::where('produk_id', $id)->where('is_thumbnail', 1)->first();
     
         return view('transaksi.detail_transaksi', compact('transaksi', 'halaman'));
+    }
+
+    public function PesananExport()
+    {
+        $pesanan = Transaksi::where('status', '1')->orWhere('status', '2')->get();
+        return Excel::download(new PesananExport($pesanan), 'Pesanan.xlsx');
+    }
+
+    public function PenjualanExport()
+    {
+        $penjualan = Transaksi::where('status', '3')->get();
+        return Excel::download(new PenjualanExport($penjualan), 'Penjualan.xlsx');
     }
 }

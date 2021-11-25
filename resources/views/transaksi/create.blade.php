@@ -58,7 +58,7 @@
 						<div class="form-group row">
 							<label class="col-form-label col-lg-2">Jumlah</label>
 							<div class="col-lg-10">
-								<input type="number" name="jumlah" class="form-control border-teal border-1 @error('jumlah') is-invalid @enderror" placeholder="Jumlah Produk" required autocomplete="off" value="{{ old('jumlah') }}">
+								<input type="number" min="1" id="jumlah" name="jumlah" class="form-control border-teal border-1 @error('jumlah') is-invalid @enderror" placeholder="Jumlah Produk" required autocomplete="off" value="{{ old('jumlah') }}">
 							</div>
 						</div>
 						<div class="form-group row" >
@@ -151,6 +151,17 @@
 				}
 			})
 		});
+
+		$(document).on('change','#jumlah', function(){
+        // alert('tes')
+            var jumlah = parseInt($('#jumlah').val());
+            var minquant = 1;
+            
+            // alert(minquant)
+            if (jumlah < minquant) {
+                $('#jumlah').val(minquant);
+            }
+        })
 		
         // Accessibility labels
         $('.pickadate-accessibility').pickadate({

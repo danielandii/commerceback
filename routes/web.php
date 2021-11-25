@@ -37,7 +37,9 @@ Route::group(['middleware' => ['auth']], function() {
 		Route::any('transaksidestroygambar/{gambar_id}', 'BuktiPembayaranController@destroy');
 		Route::get('transaksi_pesanan', 'TransaksiController@index1');
 		Route::get('transaksi_penjualan', 'TransaksiController@index2');
-		// Route::get('tranasaksi/detail_deskripsi/{id}',  'TransaksiController@detail_deskripsi')->name('transaksi.detail_deskripsi');
+		Route::get('transaksiexport', 'TransaksiController@pesananexport')->name('transaksi.cetak_pesanan');
+		Route::get('penjualanexport', 'TransaksiController@penjualanexport')->name('transaksi.cetak_penjualan');
+
 		
 		Route::get('toko',  'TokoController@index');
 		Route::get('toko/create',  'TokoController@create')->name('toko.create');

@@ -14,7 +14,7 @@
 	<div class="page-header page-header-light">
 		<div class="page-header-content header-elements-md-inline">
 			<div class="page-title d-flex">
-				<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - Data Pendapatan</h4>
+				<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - Data Pesanan</h4>
 				<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 			</div>
 		</div>
@@ -28,6 +28,7 @@
 		<div class="card">
 			<div class="card-header header-elements-inline">
 				<a href="{{ route('transaksi.create')}}"><button type="button" class="btn btn-success rounded-round"><i class="icon-add mr-2"></i> Tambah</button></a>
+				<a href="{{ route('transaksi.cetak_pesanan')}}" target="_blank"><button type="button" class="btn btn-primary rounded-round"><i class="icon-download4 mr-2"></i> Cetak</button></a>
 			</div>
 			{{-- @if (\Auth::pesanan()->role==1)
 			
