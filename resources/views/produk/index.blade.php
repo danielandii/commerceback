@@ -43,7 +43,7 @@
 						<th>Deskripsi</th>
 						<th>Varian</th>
 						<th>Gambar</th>
-						<th>Harga</th>
+						<th style="width: 15%">Harga</th>
 						<th>Stok</th>
 						<th>Rating</th>
 						<th class="text-center">Actions</th>
@@ -83,7 +83,6 @@
 							<div class="datatable-column-width">
 								{{ $produk->ulasan->avg('rating') }}
 							</div></td>
-						{{--/{{$produk->total_penjualan}}--}}
 				        <td align="center">
 							<div class="list-icons">
 								<div class="dropdown">

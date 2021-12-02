@@ -64,6 +64,16 @@
 							</div>
 						</div>
 						<div class="form-group row">
+							<label class="col-form-label col-lg-2">Jenis Kelamin</label>
+							<div class="col-lg-10">
+								<select name="jns_kelamin" class="form-control form-control-select2" data-container-css-class="border-teal" data-dropdown-css-class="border-teal">
+									<option value="" placeholder="">-- Jenis Kelamin --</option>
+									<option value="Perempuan" {{$user->jns_kelamin == 'laki-laki' ? 'selected' : ''}}>Perempuan</option>
+									<option value="Laki-laki" {{$user->jns_kelamin == 'laki-laki' ? 'selected' : ''}}>Laki - laki</option>
+                                </select>
+							</div>
+						</div>
+						<div class="form-group row">
 							<label class="col-form-label col-lg-2">Alamat</label>
 							<div class="col-lg-10">
 								<textarea name="alamat" rows="3" class="form-control border-teal border-1 @error('alamat') is-invalid @enderror" placeholder="Alamat" autocomplete="off" >{{ ( old('alamt') ) ? old('alamat') : $user->alamat }}</textarea>

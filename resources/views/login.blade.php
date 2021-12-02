@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+	<title>blanja.yu-belanja aja dulu</title>
 
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -31,7 +31,7 @@
 
 </head>
 
-<body>
+<body style="background-image: url('global_assets/images/bg5.png');background-size: cover;">
 
 	<!-- Page content -->
 	<div class="page-content">
@@ -44,12 +44,12 @@
 				<!-- Login form -->
 				<form class="login-form form-validate-jquery" method="POST" action="{{ url('/login') }}">
 					{{ csrf_field() }}
-					<div class="card mb-0">
+					<div class="card mb-0" style="background-color: transparent">
 						<div class="card-body">
 							<div class="text-center mb-3">
-								<i class="icon-reading icon-2x text-slate-300 border-slate-300 border-3 rounded-round p-3 mb-3 mt-1"></i>
+								<img src="{{asset('global_assets/images/logoblanja.png') }}" class="mb-2" style="width:80%;height:80%;"alt="">
 								<h5 class="mb-0">Login to your account</h5>
-								<span class="d-block text-muted">Enter your credentials below</span>
+								<span class="d-block">Enter your credentials below</span>
 							</div>
 							
 							@if ( session('error'))
@@ -59,14 +59,14 @@
 							    </div>
 						    @endif
 
-							<div class="form-group form-group-feedback form-group-feedback-left">
+							<div class="form-group form-group-feedback form-group-feedback-left shadow h-1000">
 								<input type="text" name="username" class="form-control" placeholder="Username" required>
 								<div class="form-control-feedback">
 									<i class="icon-user text-muted"></i>
 								</div>
 							</div>
 
-							<div class="form-group form-group-feedback form-group-feedback-left">
+							<div class="form-group form-group-feedback form-group-feedback-left shadow h-1000">
 								<input type="password" name="password" class="form-control" placeholder="Password" required>
 								<div class="form-control-feedback">
 									<i class="icon-lock2 text-muted"></i>

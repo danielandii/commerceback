@@ -56,7 +56,7 @@
 						</div>
 
 						<div class="form-group row">
-							<label class="col-form-label col-lg-2">Jenis Kelamnin</label>
+							<label class="col-form-label col-lg-2">Jenis Kelamin</label>
 							<div class="col-lg-10">
 								<div class="form-control-plaintext">{{($user->jns_kelamin) ? ($user->jns_kelamin) : '-'}}</div>
 							</div>

@@ -39,11 +39,11 @@
 				<thead>
 					<tr>
 						<th>No</th>
-						<th>Tanggal</th>
+						<th style="width: 130%">Tanggal</th>
 						<th>No. Pesanan</th>
 						<th>Nama Produk</th>
 						<th>Nama Pembeli</th>
-						<th>Total</th>
+						<th style="width: 150%">Total</th>
 						<th>Metode Pembayaran</th>
 						<th>Status</th>
 						<th class="text-center">Actions</th>
@@ -55,11 +55,11 @@
 					@foreach($transaksi as $transaksi)
 				    <tr> 
 				        <td>{{$i}}</td>
-						<td><div class="datatable-column-width">{{$transaksi->tanggal_transaksi}}</div></td>
+						<td><div class="datatable-column-width" style="width: 130%">{{$transaksi->tanggal_transaksi}}</div></td>
 				        <td><div class="datatable-column-width">{{$transaksi->no_pesanan}}</div></td>
 						<td><div class="datatable-column-width">{{@$transaksi->detail_transaksi->produk->nama}}</div></td>
 						<td><div class="datatable-column-width">{{$transaksi->nama}}</div></td>
-						<td><div class="datatable-column-width">{{"Rp. ".format_uang(@$transaksi->detail_transaksi->total)}}</div></td>
+						<td><div class="datatable-column-width" style="width: 150%">{{"Rp. ".format_uang(@$transaksi->detail_transaksi->total)}}</div></td>
 						<td>{{ (config('custom.metode_pembayaran.'.$transaksi->metode_pembayaran)) ? (config('custom.metode_pembayaran.'.$transaksi->metode_pembayaran)) : '-' }}</td>
 						<td>{{ (config('custom.status.'.$transaksi->status)) ? (config('custom.status.'.$transaksi->status)) : '-' }}</td>
 						{{-- <td><div class="datatable-column-width">{{$transaksi->status}}</div></td> --}}
