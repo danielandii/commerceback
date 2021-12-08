@@ -126,10 +126,9 @@ class KategoriController extends Controller
     {
         $kategori = Kategori::find($id);
         
-        $delete = $kategori->delete();
-            if($delete){
-                    if(file_exists(public_path($kategori->url_gambar))){
-                        \File::delete(public_path($kategori->url_gambar));
+            if($kategori){
+                    if(file_exists(public_path($kategori->url_logo))){
+                        \File::delete(public_path($kategori->url_logo));
                     }
             }
 

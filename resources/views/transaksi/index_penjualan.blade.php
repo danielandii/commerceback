@@ -27,7 +27,7 @@
 		<!-- Hover rows -->
 		<div class="card">
 			<div class="card-header header-elements-inline">
-				<a href="{{ route('transaksi.create')}}"><button type="button" class="btn btn-success rounded-round"><i class="icon-add mr-2"></i> Tambah</button></a>
+				{{-- <a href="{{ route('transaksi.create')}}"><button type="button" class="btn btn-success rounded-round"><i class="icon-add mr-2"></i> Tambah</button></a> --}}
 				<a href="{{ route('transaksi.cetak_penjualan')}}" target="_blank"><button type="button" class="btn btn-primary rounded-round"><i class="icon-download4 mr-2"></i> Cetak</button></a>
 			</div>
 			{{-- @if (\Auth::pesanan()->role==1)

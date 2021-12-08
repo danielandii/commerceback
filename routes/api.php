@@ -23,13 +23,13 @@ Route::post('/login', 'API\APIUserController@login');
 Route::middleware('auth:api')->group( function () {
 	Route::get('users', 'API\APIUserController@index');
 	Route::post('/users/store', 'API\APIUserController@store');
-	Route::post('users/update/{id}', 'API\APIUserController@update');
+	Route::put('users/update/{id}', 'API\APIUserController@update');
 	Route::delete('users/delete/{id}', 'API\APIUserController@destroy');
 	Route::get('users/detail_user/{id}',  'API\APIUserController@detail_user')->name('users.detail_user');
 	
 	Route::get('transaksi', 'API\APITransaksiController@index');
 	Route::post('transaksi/store', 'API\APITransaksiController@store');
-	Route::post('transaksi/update/{id}', 'API\APITransaksiController@update');
+	Route::put('transaksi/update/{id}', 'API\APITransaksiController@update');
 	Route::delete('transaksi/delete/{id}', 'API\APITransaksiController@destroy');
 	Route::get('transaksi/detail_transaksi/{id}',  'API\APITransaksiController@detail_transaksi');
 	Route::any('transaksidestroygambar/{gambar_id}', 'API\APIBuktiPembayaranController@destroy');
@@ -44,7 +44,7 @@ Route::middleware('auth:api')->group( function () {
 
 	Route::get('produk', 'API\APIProdukController@index');
 	Route::post('produk/store', 'API\APIProdukController@store');
-	Route::post('produk/update/{id}', 'API\APIProdukController@update');
+	Route::put('produk/update/{id}', 'API\APIProdukController@update');
 	Route::delete('produk/delete/{id}', 'API\APIProdukController@destroy');
 	Route::get('produk/detail_gambar/{id}',  'API\APIProdukController@detail_gambar')->name('produk.detail_gambar');
 	Route::get('produk/detail_deskripsi/{id}',  'API\APIProdukController@detail_deskripsi')->name('produk.detail_deskripsi');
@@ -55,19 +55,19 @@ Route::middleware('auth:api')->group( function () {
 
 	Route::get('kategori', 'API\APIKategoriController@index');
 	Route::post('/kategori/store', 'API\APIKategoriController@store');
-	Route::post('kategori/update/{id}', 'API\APIKategoriController@update');
+	Route::put('kategori/update/{id}', 'API\APIKategoriController@update');
 	Route::delete('kategori/delete/{id}', 'API\APIKategoriController@destroy');
 
 
 	Route::get('varian', 'API\APIVarianController@index');
 	Route::post('varian/store', 'API\APIVarianController@store');
-	Route::patch('varian/update/{id}', 'API\APIVarianController@update');
+	Route::put('varian/update/{id}', 'API\APIVarianController@update');
 	Route::delete('varian/delete/{id}', 'API\APIVarianController@destroy');
 	Route::get('varian/show/{id}', 'API\APIVarianController@show');
 
 	Route::get('ulasan', 'API\APIUlasanController@index');
 	Route::post('ulasan/store', 'API\APIUlasanController@store');
-	Route::post('ulasan/update/{id}', 'API\APIUlasanController@update');
+	Route::put('ulasan/update/{id}', 'API\APIUlasanController@update');
 	Route::delete('ulasan/delete/{id}', 'API\APIUlasanController@destroy');
 	Route::get('ulasan/detail_gambar/{id}',  'API\APIUlasanController@detail_gambar');
 	Route::get('ulasan/detail_deskripsi/{id}',  'API\APIUlasanController@detail_deskripsi');

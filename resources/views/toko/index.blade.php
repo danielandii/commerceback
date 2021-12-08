@@ -12,8 +12,7 @@
 		</div>
 	</div>
 	<!-- /page header -->
-
-	<!-- Content area -->
+		
 	<div class="content">
 
 	<div class="container">
@@ -48,8 +47,8 @@
        	 			<div class="card-body">
           				<div class="row no-gutters align-items-center">
            					<div class="col mr-2">
-              					<div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Penilain Toko</div>
-								  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_format(@$ulasan, 2, '.', ',') }}</div>
+              					<div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Penilaian Toko</div>
+								  <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $toko ? number_format(@$ulasan, 2, '.', ',') : 0}}</div>
            					</div>
             				<div class="col-auto">
               					<i class="fas fa-star fa-2x text-gray-300"></i>
@@ -64,7 +63,7 @@
           				<div class="row no-gutters align-items-center">
            					<div class="col mr-2">
               					<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Penjualan</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">{{ @$total_penjualan }}</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{ $toko ? @$total_penjualan : 0}}</div>
            					</div>
             				<div class="col-auto">
               					<i class="fas fa-shopping-cart fa-2x text-gray-300"></i>
@@ -79,7 +78,7 @@
           				<div class="row no-gut3ters align-items-center">
            					<div class="col mr-2">
               					<div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Pendapatan</div>
-								  <div class="h5 mb-0 font-weight-bold text-gray-800">Rp. {{ number_format(@$total_pendapatan, 0, ',', '.') }}</div>
+								  <div class="h5 mb-0 font-weight-bold text-gray-800">Rp. {{ $toko ? number_format(@$total_pendapatan, 0, ',', '.') : 0}}</div>
            					</div>
             				<div class="col-auto">
               					<i class="fas fa-money-bill-wave fa-2x text-gray-300"></i>
@@ -94,7 +93,7 @@
           				<div class="row no-gutters align-items-center">
            					<div class="col mr-2">
               					<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Jumlah Produk</div>
-								<div class="h5 mb-0 font-weight-bold text-gray-800">{{ @$jumlah_produk }}</div>
+								<div class="h5 mb-0 font-weight-bold text-gray-800">{{ $toko ? @$jumlah_produk : 0}}</div>
            					</div>
             				<div class="col-auto">
               					<i class="fas fa-box-open fa-2x text-gray-300"></i>
@@ -108,6 +107,7 @@
 	
 
 	</div>
+	<!-- Content area -->
 
 @endsection
 

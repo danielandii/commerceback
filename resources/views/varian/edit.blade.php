@@ -47,7 +47,7 @@
 						<div class="form-group row">
 						<label class="col-form-label col-lg-2">Isi Varian</label>
 							<div class="col-lg-9">
-								<input type="text" name="isi_varian[]" class="form-control border-teal border-1" placeholder="Isi Varian" value="{{ ( old('isi_varian[]') ) ? old('isi_varian[]') : $varian->isi_varian[0]->varian }}">
+								<input type="text" name="isi_varian[]" class="form-control border-teal border-1" required placeholder="Isi Varian" value="{{ ( old('isi_varian[]') ) ? old('isi_varian[]') : $varian->isi_varian[0]->varian }}">
 							</div>
 							<div class="col-md-1">
 								<button type="button" class="btn btn-success btn-icon add-more" style="display:block"><i class="icon-plus-circle2" title="Add"></i></button>

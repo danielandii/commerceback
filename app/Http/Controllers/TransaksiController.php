@@ -197,7 +197,7 @@ class TransaksiController extends Controller
 
         $transaksi->update($data_utama);
 
-        return redirect('/transaksi')->with('success', 'transaksi berhasil diubah!');
+        return redirect('/transaksi_pesanan')->with('success', 'transaksi berhasil diubah!');
     }
 
     /**
